@@ -193,13 +193,12 @@
 	});
 
 	// Roadmap Tile Filters
-	let filterTimeout = null;
 	let tilesInitialized = false;
 	
 	// Function to strip WOW/animate classes so they don't re-trigger
 	function initTilesForFiltering() {
 		if (!tilesInitialized) {
-			$(".roadmap-tile").removeClass("wow animate__animated animate__fadeInUp").addClass("filter-shown");
+			$(".roadmap-tile").removeClass("wow animate__animated animate__fadeInUp").addClass("tile-visible");
 			tilesInitialized = true;
 		}
 	}
@@ -214,33 +213,25 @@
 		// Initialize tiles (strip WOW classes on first filter click)
 		initTilesForFiltering();
 		
-		// Clear any pending filter animations
-		if (filterTimeout) {
-			clearTimeout(filterTimeout);
-		}
-		
-		// Filter tiles with animation
-		$(".roadmap-tile").each(function () {
+		// Filter tiles with staggered animation
+		let showDelay = 0;
+		$(".roadmap-tile").each(function (index) {
 			const $tile = $(this);
 			const status = $tile.data("status");
 			const shouldShow = (filter === "all" || status === filter);
+			const isCurrentlyVisible = $tile.hasClass("tile-visible");
 			
-			if (shouldShow) {
-				// Show tile
-				$tile.removeClass("filtering-out");
-				if ($tile.is(":hidden")) {
-					$tile.show();
-				}
-			} else {
-				// Hide tile with fade out
-				$tile.addClass("filtering-out");
+			if (shouldShow && !isCurrentlyVisible) {
+				// Show tile with staggered delay
+				setTimeout(function() {
+					$tile.removeClass("tile-hidden").addClass("tile-visible");
+				}, showDelay);
+				showDelay += 80; // Stagger each tile by 80ms
+			} else if (!shouldShow && isCurrentlyVisible) {
+				// Hide tile immediately (they all fade out together)
+				$tile.removeClass("tile-visible").addClass("tile-hidden");
 			}
 		});
-		
-		// After animation completes, hide the filtered out tiles
-		filterTimeout = setTimeout(function() {
-			$(".roadmap-tile.filtering-out").hide();
-		}, 300);
 	});
 
 	// Carousels Initialisation.
