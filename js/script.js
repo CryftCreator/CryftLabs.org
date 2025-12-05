@@ -194,6 +194,7 @@
 
 	// Roadmap Tile Filters
 	let tilesInitialized = false;
+	let isFiltering = false;
 	
 	// Function to strip WOW/animate classes so they don't re-trigger
 	function initTilesForFiltering() {
@@ -222,6 +223,8 @@
 	}
 	
 	$(document).on("click", ".roadmap-filter-btn", function () {
+		if (isFiltering) return; // Prevent rapid clicks
+		
 		const filter = $(this).data("filter");
 		
 		// Update active button
@@ -231,35 +234,59 @@
 		// Initialize tiles (strip WOW classes on first filter click)
 		initTilesForFiltering();
 		
-		// Filter tiles with staggered animation
-		let showDelay = 0;
-		let visibleCount = 0;
+		isFiltering = true;
 		
-		$(".roadmap-tile").each(function (index) {
-			const $tile = $(this);
-			const status = $tile.data("status");
+		// Determine which tiles to show/hide
+		const $allTiles = $(".roadmap-tile");
+		const $tilesToHide = $allTiles.filter(function() {
+			const status = $(this).data("status");
 			const shouldShow = (filter === "all" || status === filter);
-			const isCurrentlyVisible = $tile.hasClass("tile-visible");
-			
-			if (shouldShow) {
-				visibleCount++;
-				if (!isCurrentlyVisible) {
-					// Show tile with staggered delay
-					setTimeout(function() {
-						$tile.removeClass("tile-hidden").addClass("tile-visible");
-					}, showDelay);
-					showDelay += 80; // Stagger each tile by 80ms
-				}
-			} else if (isCurrentlyVisible) {
-				// Hide tile immediately (they all fade out together)
-				$tile.removeClass("tile-visible").addClass("tile-hidden");
-			}
+			return !shouldShow && $(this).hasClass("tile-visible");
+		});
+		const $tilesToShow = $allTiles.filter(function() {
+			const status = $(this).data("status");
+			const shouldShow = (filter === "all" || status === filter);
+			return shouldShow && $(this).hasClass("tile-hidden");
 		});
 		
-		// Update empty notice after a short delay to let tiles animate
+		// Count visible tiles for empty notice
+		let visibleCount = $allTiles.filter(function() {
+			const status = $(this).data("status");
+			return (filter === "all" || status === filter);
+		}).length;
+		
+		// Step 1: Fade out tiles that need to hide
+		if ($tilesToHide.length > 0) {
+			$tilesToHide.removeClass("tile-visible").addClass("tile-hiding");
+		}
+		
+		// Step 2: After fade out, set display none and show new tiles
 		setTimeout(function() {
+			// Hide the faded out tiles completely
+			$tilesToHide.removeClass("tile-hiding").addClass("tile-hidden");
+			
+			// Show new tiles with stagger
+			if ($tilesToShow.length > 0) {
+				$tilesToShow.each(function(index) {
+					const $tile = $(this);
+					$tile.removeClass("tile-hidden").addClass("tile-showing");
+					
+					// Trigger reflow then animate in
+					setTimeout(function() {
+						$tile.removeClass("tile-showing").addClass("tile-visible");
+					}, 20 + (index * 60));
+				});
+			}
+			
+			// Update empty notice
 			updateEmptyNotice(filter, visibleCount);
-		}, 100);
+			
+			// Allow filtering again
+			setTimeout(function() {
+				isFiltering = false;
+			}, $tilesToShow.length * 60 + 300);
+			
+		}, $tilesToHide.length > 0 ? 300 : 0);
 	});
 
 	// Carousels Initialisation.
