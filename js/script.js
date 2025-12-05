@@ -136,98 +136,110 @@
 	});
 
 	// Navbar scroll buttons - show only when overflow exists
+	const NAV_SCROLL_AMOUNT = 10; // pixels to scroll per click (smaller for smoother scrolling)
+	
 	function updateNavScrollButtons() {
-		const container = document.querySelector(".navbar-nav-scroll");
-		if (!container) return;
+		const navScroll = document.querySelector(".navbar-nav-scroll");
+		const navList = document.querySelector(".navbar-nav-scroll .navbar-nav");
+		const scrollLeft = document.querySelector(".nav-scroll-btn--left");
+		const scrollRight = document.querySelector(".nav-scroll-btn--right");
 		
-		const hasOverflow = container.scrollWidth > container.clientWidth + 5;
-		const scrollLeft = container.scrollLeft;
-		const maxScroll = container.scrollWidth - container.clientWidth;
-		
-		const leftBtn = document.querySelector(".nav-scroll-btn--left");
-		const rightBtn = document.querySelector(".nav-scroll-btn--right");
-		
-		if (leftBtn) {
-			if (hasOverflow && scrollLeft > 5) {
-				leftBtn.classList.add("visible");
-			} else {
-				leftBtn.classList.remove("visible");
-			}
+		if (!navScroll || !navList || !scrollLeft || !scrollRight) {
+			console.log("Nav scroll elements not found");
+			return;
 		}
 		
-		if (rightBtn) {
-			if (hasOverflow && scrollLeft < maxScroll - 5) {
-				rightBtn.classList.add("visible");
-			} else {
-				rightBtn.classList.remove("visible");
-			}
-		}
+		// Get the actual width of the nav items vs the container
+		const containerWidth = navScroll.clientWidth;
+		const contentWidth = navList.scrollWidth;
+		const scrollPos = Math.round(navScroll.scrollLeft);
+		const maxScroll = contentWidth - containerWidth;
+		const hasOverflow = contentWidth > containerWidth + 2;
+		
+		console.log("Nav scroll debug:", { containerWidth, contentWidth, scrollPos, maxScroll, hasOverflow });
+		
+		// Show left arrow if we've scrolled right
+		const showLeft = hasOverflow && scrollPos > 2;
+		// Show right arrow if there's more content to the right
+		const showRight = hasOverflow && scrollPos < maxScroll - 2;
+		
+		console.log("Button visibility:", { showLeft, showRight });
+		
+		scrollLeft.classList.toggle('visible', showLeft);
+		scrollRight.classList.toggle('visible', showRight);
 	}
 	
-	// Scroll the nav menu
-	function scrollNavMenu(direction) {
-		const container = document.querySelector(".navbar-nav-scroll");
-		if (!container) return;
+	// Initialize nav scroll
+	$(document).ready(function() {
+		const navScroll = document.querySelector(".navbar-nav-scroll");
+		const scrollLeftBtn = document.querySelector(".nav-scroll-btn--left");
+		const scrollRightBtn = document.querySelector(".nav-scroll-btn--right");
 		
-		const scrollAmount = 120;
-		const currentScroll = container.scrollLeft;
-		const maxScroll = container.scrollWidth - container.clientWidth;
+		if (!navScroll) return;
 		
-		let targetScroll;
-		if (direction === "left") {
-			targetScroll = Math.max(0, currentScroll - scrollAmount);
-		} else {
-			targetScroll = Math.min(maxScroll, currentScroll + scrollAmount);
-		}
+		let scrollInterval = null;
+		const SCROLL_INTERVAL_MS = 16; // ~60fps for smooth scrolling
 		
-		// Animate scroll
-		const startScroll = currentScroll;
-		const distance = targetScroll - startScroll;
-		const duration = 200;
-		let startTime = null;
-		
-		function animateScroll(timestamp) {
-			if (!startTime) startTime = timestamp;
-			const elapsed = timestamp - startTime;
-			const progress = Math.min(elapsed / duration, 1);
-			
-			// Ease out
-			const easeProgress = 1 - Math.pow(1 - progress, 3);
-			container.scrollLeft = startScroll + (distance * easeProgress);
-			
-			if (progress < 1) {
-				requestAnimationFrame(animateScroll);
-			} else {
+		// Start continuous scrolling
+		function startScrolling(direction) {
+			if (scrollInterval) return;
+			scrollInterval = setInterval(function() {
+				navScroll.scrollLeft += direction * NAV_SCROLL_AMOUNT;
 				updateNavScrollButtons();
+			}, SCROLL_INTERVAL_MS);
+		}
+		
+		// Stop continuous scrolling
+		function stopScrolling() {
+			if (scrollInterval) {
+				clearInterval(scrollInterval);
+				scrollInterval = null;
 			}
 		}
 		
-		requestAnimationFrame(animateScroll);
-	}
-	
-	// Initialize and update on resize
-	$(window).on("load resize", function() {
+		// Left button - hold to scroll
+		if (scrollLeftBtn) {
+			scrollLeftBtn.addEventListener('mousedown', function(e) {
+				e.preventDefault();
+				startScrolling(-1);
+			});
+			scrollLeftBtn.addEventListener('mouseup', stopScrolling);
+			scrollLeftBtn.addEventListener('mouseleave', stopScrolling);
+			// Touch support
+			scrollLeftBtn.addEventListener('touchstart', function(e) {
+				e.preventDefault();
+				startScrolling(-1);
+			});
+			scrollLeftBtn.addEventListener('touchend', stopScrolling);
+		}
+		
+		// Right button - hold to scroll
+		if (scrollRightBtn) {
+			scrollRightBtn.addEventListener('mousedown', function(e) {
+				e.preventDefault();
+				startScrolling(1);
+			});
+			scrollRightBtn.addEventListener('mouseup', stopScrolling);
+			scrollRightBtn.addEventListener('mouseleave', stopScrolling);
+			// Touch support
+			scrollRightBtn.addEventListener('touchstart', function(e) {
+				e.preventDefault();
+				startScrolling(1);
+			});
+			scrollRightBtn.addEventListener('touchend', stopScrolling);
+		}
+		
+		// Update scroll button visibility on scroll and resize
+		navScroll.addEventListener('scroll', updateNavScrollButtons);
+		window.addEventListener('resize', updateNavScrollButtons);
+		
+		// Initial check
 		setTimeout(updateNavScrollButtons, 100);
 	});
 	
-	// Listen for scroll on the container
-	$(document).ready(function() {
-		const container = document.querySelector(".navbar-nav-scroll");
-		if (container) {
-			container.addEventListener("scroll", updateNavScrollButtons);
-		}
+	// Also check on window load
+	$(window).on("load", function() {
 		setTimeout(updateNavScrollButtons, 200);
-	});
-	
-	// Button click handlers using event delegation
-	$(document).on("click", ".nav-scroll-btn--left", function(e) {
-		e.preventDefault();
-		scrollNavMenu("left");
-	});
-	
-	$(document).on("click", ".nav-scroll-btn--right", function(e) {
-		e.preventDefault();
-		scrollNavMenu("right");
 	});
 
 	// Roadmap Tile Filters

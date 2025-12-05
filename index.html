@@ -477,105 +477,6 @@
 		}
 		
 		/* Horizontal Scrollable Header Nav */
-		.header__navbar {
-			position: relative;
-			overflow: hidden;
-		}
-		.navbar-collapse {
-			flex: 1;
-			display: flex !important;
-			align-items: center;
-			justify-content: space-between;
-			min-width: 0;
-			overflow: hidden;
-		}
-		.navbar-nav-wrapper {
-			position: relative;
-			display: flex;
-			align-items: center;
-			flex: 1 1 0;
-			overflow: visible;
-			margin: 0 15px;
-			min-width: 0;
-			padding: 0 35px;
-		}
-		.header__social {
-			flex-shrink: 0;
-		}
-		.header__social .social__list {
-			flex-wrap: nowrap !important;
-		}
-		.navbar-nav-scroll {
-			overflow-x: scroll;
-			overflow-y: hidden;
-			scrollbar-width: none;
-			-ms-overflow-style: none;
-			padding: 0 5px;
-			flex: 1;
-			min-width: 0;
-		}
-		.navbar-nav-scroll::-webkit-scrollbar {
-			display: none;
-		}
-		.navbar-nav {
-			flex-wrap: nowrap !important;
-			white-space: nowrap;
-			gap: 4px;
-			display: inline-flex !important;
-		}
-		.navbar-nav .nav-item {
-			padding: 0 6px;
-			flex-shrink: 0;
-		}
-		.nav-scroll-btn {
-			display: flex;
-			position: absolute;
-			top: 50%;
-			transform: translateY(-50%);
-			width: 32px;
-			height: 32px;
-			background: rgba(0,0,0,0.95);
-			border: 1px solid #555;
-			border-radius: 50%;
-			color: #fff;
-			cursor: pointer;
-			z-index: 100;
-			align-items: center;
-			justify-content: center;
-			transition: all 0.2s ease;
-			opacity: 0;
-			visibility: hidden;
-			pointer-events: none;
-		}
-		.nav-scroll-btn.visible {
-			opacity: 1;
-			visibility: visible;
-			pointer-events: auto;
-		}
-		.nav-scroll-btn:hover {
-			background: rgba(32, 201, 151, 0.4);
-			border-color: #20c997;
-		}
-		.nav-scroll-btn:active {
-			transform: translateY(-50%) scale(0.92);
-		}
-		.nav-scroll-btn--left {
-			left: 0px;
-		}
-		.nav-scroll-btn--right {
-			right: 0px;
-		}
-		.nav-scroll-btn svg {
-			width: 16px;
-			height: 16px;
-			fill: currentColor;
-			pointer-events: none;
-		}
-		@media (max-width: 991px) {
-			.nav-scroll-btn {
-				display: none !important;
-			}
-		}
 		@media (min-width: 992px) {
 			.header {
 				overflow-x: clip;
@@ -584,10 +485,109 @@
 				overflow: visible;
 			}
 			.header__navbar {
+				display: flex !important;
+				align-items: center;
+				flex-wrap: nowrap;
 				overflow: visible;
 			}
+			.header__navbar .navbar-brand {
+				flex-shrink: 0;
+				z-index: 10;
+			}
 			.navbar-collapse {
+				display: flex !important;
+				align-items: center;
+				flex: 1;
+				min-width: 0;
+				justify-content: space-between;
 				overflow: visible;
+			}
+			.navbar-nav-wrapper {
+				display: flex !important;
+				align-items: center;
+				flex: 1;
+				min-width: 0;
+				max-width: calc(100% - 180px);
+				margin: 0 15px;
+				position: relative;
+				overflow: hidden;
+			}
+			.nav-scroll-btn {
+				flex-shrink: 0;
+				width: 28px;
+				height: 28px;
+				background: rgba(0,0,0,0.9);
+				border: 1px solid #444;
+				border-radius: 50%;
+				color: #fff;
+				cursor: pointer;
+				align-items: center;
+				justify-content: center;
+				z-index: 15;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.2s ease;
+				position: relative;
+			}
+			.nav-scroll-btn.visible {
+				opacity: 1;
+				pointer-events: auto;
+			}
+			.nav-scroll-btn:hover {
+				background: rgba(32, 201, 151, 0.4);
+				border-color: #20c997;
+			}
+			.nav-scroll-btn svg {
+				width: 16px;
+				height: 16px;
+				fill: currentColor;
+			}
+			.nav-scroll-btn--left {
+				margin-right: 8px;
+				display: flex;
+			}
+			.nav-scroll-btn--right {
+				margin-left: 8px;
+				display: flex;
+			}
+			.navbar-nav-scroll {
+				display: block !important;
+				flex: 1;
+				min-width: 0;
+				overflow-x: scroll !important;
+				overflow-y: hidden !important;
+				scrollbar-width: none;
+				-ms-overflow-style: none;
+				margin: 0 5px;
+			}
+			.navbar-nav-scroll::-webkit-scrollbar {
+				display: none;
+			}
+			.navbar-nav {
+				display: inline-flex !important;
+				flex-wrap: nowrap !important;
+				white-space: nowrap;
+				gap: 5px;
+				margin: 0 !important;
+				padding: 0 !important;
+				flex-grow: 0 !important;
+				margin-right: 0 !important;
+				width: max-content;
+			}
+			.navbar-nav .nav-item {
+				flex-shrink: 0;
+			}
+			.header__social {
+				flex-shrink: 0;
+				margin-left: auto;
+			}
+			.header__social .social__list {
+				flex-wrap: nowrap !important;
+			}
+		}
+		@media (max-width: 991px) {
+			.navbar-nav-wrapper {
+				display: none !important;
 			}
 		}
 		
