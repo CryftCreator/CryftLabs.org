@@ -232,6 +232,10 @@
 		}
 		
 		/* Roadmap Interactive Tiles */
+		.section-roadmap__title,
+		.section-roadmap__text {
+			text-align: center;
+		}
 		.roadmap-filters {
 			display: flex;
 			justify-content: center;
@@ -258,6 +262,12 @@
 			background: rgba(32, 201, 151, 0.2);
 			border-color: #20c997;
 			color: #20c997;
+		}
+		.roadmap-disclaimer {
+			text-align: center;
+			color: #555;
+			font-size: 12px;
+			margin: 0 0 20px 0;
 		}
 		.roadmap-tiles {
 			display: grid;
@@ -352,20 +362,20 @@
 		}
 		.roadmap-notice {
 			text-align: center;
-			padding: 20px;
-			background: rgba(32, 201, 151, 0.05);
-			border: 1px solid rgba(32, 201, 151, 0.2);
-			border-radius: 8px;
 			margin-top: 30px;
+			margin-bottom: 30px;
 		}
 		.roadmap-notice__text {
-			color: #888;
-			font-size: 13px;
+			color: #666;
+			font-size: 12px;
 			margin: 0;
-			line-height: 1.6;
+			line-height: 1.5;
+		}
+		.roadmap-notice__text + .roadmap-notice__text {
+			margin-top: 6px;
 		}
 		.roadmap-notice__text strong {
-			color: #20c997;
+			color: #888;
 		}
 		
 		/* Quote Section Image Styling */
@@ -854,62 +864,86 @@
 					<div class="section-roadmap__wrapper">
 						<h2 class="section-roadmap__title nft-h2 wow animate__animated animate__slideInDown">Roadmap</h2>
 						<p class="section-roadmap__text wow animate__animated animate__slideInRight">It all started during Thanksgiving 2021, when founder Chad Scully (CryftCreator) wanted to gift NFTs to friends and family. What began as a holiday gesture evolved into something much bigger.</p>
-						<ul class="section-roadmap__list list-unstyled">
-							<li class="section-roadmap__item wow animate__animated animate__fadeInUp" data-wow-delay="0.1s">
-								<div class="section-roadmap__item-heading">
-									<span class="section-roadmap__item-number">Q1</span>
-									<span class="section-roadmap__item-text">Phase 1: Foundation</span>
+						
+						<!-- Filter Buttons -->
+						<div class="roadmap-filters wow animate__animated animate__fadeIn">
+							<button class="roadmap-filter-btn active" data-filter="all">All Phases</button>
+							<button class="roadmap-filter-btn" data-filter="complete">Complete</button>
+							<button class="roadmap-filter-btn" data-filter="active">In Progress</button>
+							<button class="roadmap-filter-btn" data-filter="waiting">Upcoming</button>
+						</div>
+						
+						<p class="roadmap-disclaimer"><em>This roadmap represents our development goals and is subject to change. No specific deadlines are implied or guaranteed.</em></p>
+						
+						<!-- Roadmap Tiles -->
+						<div class="roadmap-tiles">
+							<div class="roadmap-tile status-active wow animate__animated animate__fadeInUp" data-status="active" data-wow-delay="0.1s">
+								<div class="roadmap-tile__header">
+									<span class="roadmap-tile__phase">Phase 1</span>
+									<span class="roadmap-tile__status status-active">
+										<span class="roadmap-tile__status-dot"></span>
+										In Progress
+									</span>
 								</div>
-								<div class="section-roadmap__item-content">
-									<p>Core CryftGo and CryftTEE development. Building the P-Chain and X-EVM implementation with basic staking and delegation functionality.</p>
+								<h3 class="roadmap-tile__title">Foundation</h3>
+								<p class="roadmap-tile__content">Core CryftGo and CryftTEE development. Building the P-Chain and X-EVM implementation with basic staking and delegation functionality.</p>
+							</div>
+							
+							<div class="roadmap-tile status-waiting wow animate__animated animate__fadeInUp" data-status="waiting" data-wow-delay="0.2s">
+								<div class="roadmap-tile__header">
+									<span class="roadmap-tile__phase">Phase 2</span>
+									<span class="roadmap-tile__status status-waiting">
+										<span class="roadmap-tile__status-dot"></span>
+										Upcoming
+									</span>
 								</div>
-							</li>
-							<li class="section-roadmap__item wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-								<div class="section-roadmap__item-heading">
-									<span class="section-roadmap__item-number">Q2</span>
-									<span class="section-roadmap__item-text">Phase 2: Pinning & Integrity</span>
+								<h3 class="roadmap-tile__title">Pinning & Integrity</h3>
+								<p class="roadmap-tile__content">IPFS module deployment for chain data availability. Genesis pin configuration and pinning reward distribution to incentivize validators.</p>
+							</div>
+							
+							<div class="roadmap-tile status-waiting wow animate__animated animate__fadeInUp" data-status="waiting" data-wow-delay="0.3s">
+								<div class="roadmap-tile__header">
+									<span class="roadmap-tile__phase">Phase 3</span>
+									<span class="roadmap-tile__status status-waiting">
+										<span class="roadmap-tile__status-dot"></span>
+										Upcoming
+									</span>
 								</div>
-								<div class="section-roadmap__item-content">
-									<p>IPFS module deployment for chain data availability. Genesis pin configuration and pinning reward distribution to incentivize validators.</p>
+								<h3 class="roadmap-tile__title">Subnets & Scale</h3>
+								<p class="roadmap-tile__content">Public subnet creation enabling custom blockchain networks. Cross-subnet messaging and parallel execution optimization targeting 50,000 TPS throughput.</p>
+							</div>
+							
+							<div class="roadmap-tile status-waiting wow animate__animated animate__fadeInUp" data-status="waiting" data-wow-delay="0.4s">
+								<div class="roadmap-tile__header">
+									<span class="roadmap-tile__phase">Phase 4</span>
+									<span class="roadmap-tile__status status-waiting">
+										<span class="roadmap-tile__status-dot"></span>
+										Upcoming
+									</span>
 								</div>
-							</li>
-							<li class="section-roadmap__item wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
-								<div class="section-roadmap__item-heading">
-									<span class="section-roadmap__item-number">Q3</span>
-									<span class="section-roadmap__item-text">Phase 3: Subnets & Scale</span>
+								<h3 class="roadmap-tile__title">Ecosystem Growth</h3>
+								<p class="roadmap-tile__content">Developer tooling, SDKs, and comprehensive documentation. Bridge integrations with major networks and enterprise partnerships.</p>
+							</div>
+							
+							<div class="roadmap-tile status-waiting wow animate__animated animate__fadeInUp" data-status="waiting" data-wow-delay="0.5s">
+								<div class="roadmap-tile__header">
+									<span class="roadmap-tile__phase">Phase 5</span>
+									<span class="roadmap-tile__status status-waiting">
+										<span class="roadmap-tile__status-dot"></span>
+										Upcoming
+									</span>
 								</div>
-								<div class="section-roadmap__item-content">
-									<p>Public subnet creation enabling custom blockchain networks. Cross-subnet messaging and parallel execution optimization targeting 50,000 TPS throughput.</p>
-								</div>
-							</li>
-							<li class="section-roadmap__item wow animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-								<div class="section-roadmap__item-heading">
-									<span class="section-roadmap__item-number">Q4</span>
-									<span class="section-roadmap__item-text">Phase 4: Ecosystem Growth</span>
-								</div>
-								<div class="section-roadmap__item-content">
-									<p>Developer tooling, SDKs, and comprehensive documentation. Bridge integrations with major networks and enterprise partnerships.</p>
-								</div>
-							</li>
-							<li class="section-roadmap__item wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
-								<div class="section-roadmap__item-heading">
-									<span class="section-roadmap__item-number">Q5</span>
-									<span class="section-roadmap__item-text">Phase 5: Mainnet Launch</span>
-								</div>
-								<div class="section-roadmap__item-content">
-									<p>Full mainnet deployment with sub-500ms finality. Validator onboarding, staking rewards activation, and public network access.</p>
-								</div>
-							</li>
-							<li class="section-roadmap__item wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
-								<div class="section-roadmap__item-heading">
-									<span class="section-roadmap__item-number">&infin;</span>
-									<span class="section-roadmap__item-text">Phase 6: Continuous Evolution</span>
-								</div>
-								<div class="section-roadmap__item-content">
-									<p>Ongoing protocol upgrades, community governance, and expansion of subnet ecosystem for gaming, DeFi, and enterprise use cases.</p>
-								</div>
-							</li>
-						</ul>
+								<h3 class="roadmap-tile__title">Mainnet Launch</h3>
+								<p class="roadmap-tile__content">Full mainnet deployment with sub-500ms finality. Validator onboarding, staking rewards activation, and public network access.</p>
+							</div>
+						</div>
+						
+						<!-- Notice about continuous improvement -->
+						<div class="roadmap-notice wow animate__animated animate__fadeIn">
+							<p class="roadmap-notice__text">
+								<strong>Continuous Evolution:</strong> Beyond these phases, we are committed to ongoing protocol upgrades, community governance, and expansion of the subnet ecosystem for gaming, DeFi, and enterprise use cases.
+							</p>
+						</div>
 						<div class="section-roadmap__button wow animate__animated animate__pulse" data-wow-delay="0.7s"><div class="btn-token-wrapper"><a
 	class="btn btn-animate btn-animate--primary"
 	href="#"

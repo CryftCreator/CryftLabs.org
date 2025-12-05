@@ -135,6 +135,25 @@
 		}
 	});
 
+	// Roadmap Tile Filters
+	$(".roadmap-filter-btn").on("click", function () {
+		const filter = $(this).data("filter");
+		
+		// Update active button
+		$(".roadmap-filter-btn").removeClass("active");
+		$(this).addClass("active");
+		
+		// Filter tiles
+		$(".roadmap-tile").each(function () {
+			const status = $(this).data("status");
+			if (filter === "all" || status === filter) {
+				$(this).removeClass("hidden");
+			} else {
+				$(this).addClass("hidden");
+			}
+		});
+	});
+
 	// Carousels Initialisation.
 
 	$(window).on("load", function () {
