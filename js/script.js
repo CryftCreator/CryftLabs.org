@@ -137,79 +137,97 @@
 
 	// Navbar scroll buttons - show only when overflow exists
 	function updateNavScrollButtons() {
-		const scrollContainer = $(".navbar-nav-scroll");
-		if (!scrollContainer.length) return;
+		const container = document.querySelector(".navbar-nav-scroll");
+		if (!container) return;
 		
-		const container = scrollContainer[0];
-		const hasOverflow = container.scrollWidth > container.clientWidth + 2;
-		const scrollLeft = Math.round(container.scrollLeft);
+		const hasOverflow = container.scrollWidth > container.clientWidth + 5;
+		const scrollLeft = container.scrollLeft;
 		const maxScroll = container.scrollWidth - container.clientWidth;
 		
-		// Show/hide left arrow
-		if (hasOverflow && scrollLeft > 2) {
-			$(".nav-scroll-btn--left").addClass("visible");
-		} else {
-			$(".nav-scroll-btn--left").removeClass("visible");
+		const leftBtn = document.querySelector(".nav-scroll-btn--left");
+		const rightBtn = document.querySelector(".nav-scroll-btn--right");
+		
+		if (leftBtn) {
+			if (hasOverflow && scrollLeft > 5) {
+				leftBtn.classList.add("visible");
+			} else {
+				leftBtn.classList.remove("visible");
+			}
 		}
 		
-		// Show/hide right arrow
-		if (hasOverflow && scrollLeft < maxScroll - 2) {
-			$(".nav-scroll-btn--right").addClass("visible");
-		} else {
-			$(".nav-scroll-btn--right").removeClass("visible");
+		if (rightBtn) {
+			if (hasOverflow && scrollLeft < maxScroll - 5) {
+				rightBtn.classList.add("visible");
+			} else {
+				rightBtn.classList.remove("visible");
+			}
 		}
 	}
 	
-	// Initialize and update on scroll/resize
+	// Scroll the nav menu
+	function scrollNavMenu(direction) {
+		const container = document.querySelector(".navbar-nav-scroll");
+		if (!container) return;
+		
+		const scrollAmount = 120;
+		const currentScroll = container.scrollLeft;
+		const maxScroll = container.scrollWidth - container.clientWidth;
+		
+		let targetScroll;
+		if (direction === "left") {
+			targetScroll = Math.max(0, currentScroll - scrollAmount);
+		} else {
+			targetScroll = Math.min(maxScroll, currentScroll + scrollAmount);
+		}
+		
+		// Animate scroll
+		const startScroll = currentScroll;
+		const distance = targetScroll - startScroll;
+		const duration = 200;
+		let startTime = null;
+		
+		function animateScroll(timestamp) {
+			if (!startTime) startTime = timestamp;
+			const elapsed = timestamp - startTime;
+			const progress = Math.min(elapsed / duration, 1);
+			
+			// Ease out
+			const easeProgress = 1 - Math.pow(1 - progress, 3);
+			container.scrollLeft = startScroll + (distance * easeProgress);
+			
+			if (progress < 1) {
+				requestAnimationFrame(animateScroll);
+			} else {
+				updateNavScrollButtons();
+			}
+		}
+		
+		requestAnimationFrame(animateScroll);
+	}
+	
+	// Initialize and update on resize
 	$(window).on("load resize", function() {
 		setTimeout(updateNavScrollButtons, 100);
 	});
 	
-	// Use event delegation for scroll container
-	$(document).on("scroll", ".navbar-nav-scroll", updateNavScrollButtons);
-	
-	// Also attach directly once DOM is ready
+	// Listen for scroll on the container
 	$(document).ready(function() {
-		$(".navbar-nav-scroll").on("scroll", updateNavScrollButtons);
+		const container = document.querySelector(".navbar-nav-scroll");
+		if (container) {
+			container.addEventListener("scroll", updateNavScrollButtons);
+		}
 		setTimeout(updateNavScrollButtons, 200);
 	});
 	
-	// Use event delegation for nav scroll buttons
-	$(document).on("click", ".nav-scroll-btn--left", function (e) {
+	// Button click handlers using event delegation
+	$(document).on("click", ".nav-scroll-btn--left", function(e) {
 		e.preventDefault();
-		e.stopPropagation();
-		const scrollContainer = $(".navbar-nav-scroll");
-		if (!scrollContainer.length) return;
-		
-		const currentScroll = scrollContainer[0].scrollLeft;
-		const scrollAmount = 150;
-		const newScroll = Math.max(0, currentScroll - scrollAmount);
-		
-		scrollContainer[0].scrollTo({
-			left: newScroll,
-			behavior: 'smooth'
-		});
-		
-		setTimeout(updateNavScrollButtons, 250);
+		scrollNavMenu("left");
 	});
 	
-	$(document).on("click", ".nav-scroll-btn--right", function (e) {
+	$(document).on("click", ".nav-scroll-btn--right", function(e) {
 		e.preventDefault();
-		e.stopPropagation();
-		const scrollContainer = $(".navbar-nav-scroll");
-		if (!scrollContainer.length) return;
-		
-		const currentScroll = scrollContainer[0].scrollLeft;
-		const maxScroll = scrollContainer[0].scrollWidth - scrollContainer[0].clientWidth;
-		const scrollAmount = 150;
-		const newScroll = Math.min(maxScroll, currentScroll + scrollAmount);
-		
-		scrollContainer[0].scrollTo({
-			left: newScroll,
-			behavior: 'smooth'
-		});
-		
-		setTimeout(updateNavScrollButtons, 250);
+		scrollNavMenu("right");
 	});
 
 	// Roadmap Tile Filters

@@ -494,9 +494,10 @@
 			display: flex;
 			align-items: center;
 			flex: 1 1 0;
-			overflow: hidden;
+			overflow: visible;
 			margin: 0 15px;
 			min-width: 0;
+			padding: 0 35px;
 		}
 		.header__social {
 			flex-shrink: 0;
@@ -505,13 +506,13 @@
 			flex-wrap: nowrap !important;
 		}
 		.navbar-nav-scroll {
-			overflow-x: auto;
+			overflow-x: scroll;
 			overflow-y: hidden;
 			scrollbar-width: none;
 			-ms-overflow-style: none;
-			scroll-behavior: smooth;
 			padding: 0 5px;
-			width: 100%;
+			flex: 1;
+			min-width: 0;
 		}
 		.navbar-nav-scroll::-webkit-scrollbar {
 			display: none;
