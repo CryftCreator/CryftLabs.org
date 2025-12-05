@@ -203,6 +203,24 @@
 		}
 	}
 	
+	// Function to update empty notice visibility
+	function updateEmptyNotice(filter, visibleCount) {
+		const $notice = $(".roadmap-empty-notice");
+		if (visibleCount === 0) {
+			let message = "";
+			if (filter === "complete") {
+				message = '<i class="bi bi-check-circle"></i>Completed milestones will appear here as we achieve them.';
+			} else if (filter === "active") {
+				message = '<i class="bi bi-lightning-charge"></i>Active milestones will appear here when work begins.';
+			} else if (filter === "waiting") {
+				message = '<i class="bi bi-hourglass-split"></i>Upcoming milestones will appear here as we plan ahead.';
+			}
+			$notice.html(message).addClass("visible");
+		} else {
+			$notice.removeClass("visible");
+		}
+	}
+	
 	$(document).on("click", ".roadmap-filter-btn", function () {
 		const filter = $(this).data("filter");
 		
@@ -215,23 +233,33 @@
 		
 		// Filter tiles with staggered animation
 		let showDelay = 0;
+		let visibleCount = 0;
+		
 		$(".roadmap-tile").each(function (index) {
 			const $tile = $(this);
 			const status = $tile.data("status");
 			const shouldShow = (filter === "all" || status === filter);
 			const isCurrentlyVisible = $tile.hasClass("tile-visible");
 			
-			if (shouldShow && !isCurrentlyVisible) {
-				// Show tile with staggered delay
-				setTimeout(function() {
-					$tile.removeClass("tile-hidden").addClass("tile-visible");
-				}, showDelay);
-				showDelay += 80; // Stagger each tile by 80ms
-			} else if (!shouldShow && isCurrentlyVisible) {
+			if (shouldShow) {
+				visibleCount++;
+				if (!isCurrentlyVisible) {
+					// Show tile with staggered delay
+					setTimeout(function() {
+						$tile.removeClass("tile-hidden").addClass("tile-visible");
+					}, showDelay);
+					showDelay += 80; // Stagger each tile by 80ms
+				}
+			} else if (isCurrentlyVisible) {
 				// Hide tile immediately (they all fade out together)
 				$tile.removeClass("tile-visible").addClass("tile-hidden");
 			}
 		});
+		
+		// Update empty notice after a short delay to let tiles animate
+		setTimeout(function() {
+			updateEmptyNotice(filter, visibleCount);
+		}, 100);
 	});
 
 	// Carousels Initialisation.
