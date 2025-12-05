@@ -135,7 +135,65 @@
 		}
 	});
 
+	// Navbar scroll buttons - show only when overflow exists
+	function updateNavScrollButtons() {
+		const scrollContainer = $(".navbar-nav-scroll");
+		if (!scrollContainer.length) return;
+		
+		const container = scrollContainer[0];
+		const hasOverflow = container.scrollWidth > container.clientWidth + 2;
+		const scrollLeft = Math.round(container.scrollLeft);
+		const maxScroll = container.scrollWidth - container.clientWidth;
+		
+		// Show/hide left arrow
+		if (hasOverflow && scrollLeft > 2) {
+			$(".nav-scroll-btn--left").addClass("visible");
+		} else {
+			$(".nav-scroll-btn--left").removeClass("visible");
+		}
+		
+		// Show/hide right arrow
+		if (hasOverflow && scrollLeft < maxScroll - 2) {
+			$(".nav-scroll-btn--right").addClass("visible");
+		} else {
+			$(".nav-scroll-btn--right").removeClass("visible");
+		}
+	}
+	
+	// Initialize and update on scroll/resize
+	$(window).on("load resize", function() {
+		setTimeout(updateNavScrollButtons, 100);
+	});
+	$(".navbar-nav-scroll").on("scroll", updateNavScrollButtons);
+	
+	// Also run on document ready
+	$(document).ready(function() {
+		setTimeout(updateNavScrollButtons, 200);
+	});
+	
+	$(".nav-scroll-btn--left").on("click", function () {
+		const scrollContainer = $(".navbar-nav-scroll");
+		const currentScroll = scrollContainer.scrollLeft();
+		const scrollAmount = 150;
+		
+		scrollContainer.animate({ 
+			scrollLeft: Math.max(0, currentScroll - scrollAmount) 
+		}, 200, updateNavScrollButtons);
+	});
+	
+	$(".nav-scroll-btn--right").on("click", function () {
+		const scrollContainer = $(".navbar-nav-scroll");
+		const currentScroll = scrollContainer.scrollLeft();
+		const maxScroll = scrollContainer[0].scrollWidth - scrollContainer.width();
+		const scrollAmount = 150;
+		
+		scrollContainer.animate({ 
+			scrollLeft: Math.min(maxScroll, currentScroll + scrollAmount) 
+		}, 200, updateNavScrollButtons);
+	});
+
 	// Roadmap Tile Filters
+	let filterTimeout = null;
 	$(document).on("click", ".roadmap-filter-btn", function () {
 		const filter = $(this).data("filter");
 		
@@ -143,15 +201,38 @@
 		$(".roadmap-filter-btn").removeClass("active");
 		$(this).addClass("active");
 		
+		// Clear any pending filter animations
+		if (filterTimeout) {
+			clearTimeout(filterTimeout);
+		}
+		
+		// Reset all animation classes first
+		$(".roadmap-tile").removeClass("filtering-out filtering-in");
+		
 		// Filter tiles with animation
 		$(".roadmap-tile").each(function () {
-			const status = $(this).data("status");
-			if (filter === "all" || status === filter) {
-				$(this).fadeIn(300).removeClass("hidden");
+			const $tile = $(this);
+			const status = $tile.data("status");
+			const shouldShow = (filter === "all" || status === filter);
+			
+			if (shouldShow) {
+				// Show tile
+				if ($tile.is(":hidden")) {
+					$tile.show().addClass("filtering-in");
+				}
 			} else {
-				$(this).fadeOut(300).addClass("hidden");
+				// Hide tile with fade out
+				if ($tile.is(":visible")) {
+					$tile.addClass("filtering-out");
+				}
 			}
 		});
+		
+		// After animation completes, clean up
+		filterTimeout = setTimeout(function() {
+			$(".roadmap-tile.filtering-out").hide().removeClass("filtering-out");
+			$(".roadmap-tile.filtering-in").removeClass("filtering-in");
+		}, 300);
 	});
 
 	// Carousels Initialisation.
