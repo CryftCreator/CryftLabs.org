@@ -136,20 +136,20 @@
 	});
 
 	// Roadmap Tile Filters
-	$(".roadmap-filter-btn").on("click", function () {
+	$(document).on("click", ".roadmap-filter-btn", function () {
 		const filter = $(this).data("filter");
 		
 		// Update active button
 		$(".roadmap-filter-btn").removeClass("active");
 		$(this).addClass("active");
 		
-		// Filter tiles
+		// Filter tiles with animation
 		$(".roadmap-tile").each(function () {
 			const status = $(this).data("status");
 			if (filter === "all" || status === filter) {
-				$(this).removeClass("hidden");
+				$(this).fadeIn(300).removeClass("hidden");
 			} else {
-				$(this).addClass("hidden");
+				$(this).fadeOut(300).addClass("hidden");
 			}
 		});
 	});
