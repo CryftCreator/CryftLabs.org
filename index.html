@@ -319,6 +319,9 @@
 			overflow: hidden;
 			opacity: 1;
 			transform: scale(1) translateY(0);
+			height: 200px;
+			display: flex;
+			flex-direction: column;
 		}
 		.roadmap-tile.tile-hidden {
 			opacity: 0;
@@ -326,12 +329,14 @@
 			pointer-events: none;
 			position: absolute;
 			visibility: hidden;
+			height: 200px;
 		}
 		.roadmap-tile.tile-visible {
 			opacity: 1;
 			transform: scale(1) translateY(0);
 			position: relative;
 			visibility: visible;
+			height: 200px;
 		}
 		.roadmap-tile:hover {
 			border-color: #555;
@@ -351,6 +356,7 @@
 			align-items: center;
 			justify-content: space-between;
 			margin-bottom: 12px;
+			flex-shrink: 0;
 		}
 		.roadmap-tile__phase {
 			font-size: 12px;
@@ -400,11 +406,29 @@
 			font-weight: 600;
 			color: #fff;
 			margin-bottom: 10px;
+			flex-shrink: 0;
 		}
 		.roadmap-tile__content {
 			font-size: 14px;
 			color: #999;
 			line-height: 1.6;
+			overflow-y: auto;
+			flex: 1;
+			padding-right: 4px;
+		}
+		.roadmap-tile__content::-webkit-scrollbar {
+			width: 4px;
+		}
+		.roadmap-tile__content::-webkit-scrollbar-track {
+			background: rgba(255,255,255,0.05);
+			border-radius: 2px;
+		}
+		.roadmap-tile__content::-webkit-scrollbar-thumb {
+			background: rgba(255,255,255,0.2);
+			border-radius: 2px;
+		}
+		.roadmap-tile__content::-webkit-scrollbar-thumb:hover {
+			background: rgba(255,255,255,0.3);
 		}
 		.roadmap-notice {
 			text-align: center;
