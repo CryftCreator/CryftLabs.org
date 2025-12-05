@@ -205,11 +205,22 @@
 		}
 		
 		/* FAQ Section Centering */
+		.section-faq__title {
+			text-align: center;
+		}
 		.section-faq__wrapper {
 			justify-content: center;
 		}
 		.section-faq__list {
 			max-width: 800px;
+		}
+		/* FAQ Arrow rotation - down when closed, up when open */
+		.section-faq__item-icon {
+			transition: transform 0.3s ease;
+			transform: rotate(90deg);
+		}
+		.section-faq__item-heading.opened .section-faq__item-icon {
+			transform: rotate(-90deg);
 		}
 		
 		/* Quote Section Image Styling */
