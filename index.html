@@ -299,19 +299,11 @@
 		.roadmap-tile.filtering-out {
 			opacity: 0;
 			transform: scale(0.95);
+			pointer-events: none;
 		}
-		.roadmap-tile.filtering-in {
-			animation: tileFilterIn 0.4s ease forwards;
-		}
-		@keyframes tileFilterIn {
-			0% {
-				opacity: 0;
-				transform: scale(0.95) translateY(10px);
-			}
-			100% {
-				opacity: 1;
-				transform: scale(1) translateY(0);
-			}
+		.roadmap-tile.filter-shown {
+			opacity: 1;
+			transform: scale(1);
 		}
 		.roadmap-tile:hover {
 			border-color: #555;

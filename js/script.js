@@ -194,6 +194,16 @@
 
 	// Roadmap Tile Filters
 	let filterTimeout = null;
+	let tilesInitialized = false;
+	
+	// Function to strip WOW/animate classes so they don't re-trigger
+	function initTilesForFiltering() {
+		if (!tilesInitialized) {
+			$(".roadmap-tile").removeClass("wow animate__animated animate__fadeInUp").addClass("filter-shown");
+			tilesInitialized = true;
+		}
+	}
+	
 	$(document).on("click", ".roadmap-filter-btn", function () {
 		const filter = $(this).data("filter");
 		
@@ -201,13 +211,13 @@
 		$(".roadmap-filter-btn").removeClass("active");
 		$(this).addClass("active");
 		
+		// Initialize tiles (strip WOW classes on first filter click)
+		initTilesForFiltering();
+		
 		// Clear any pending filter animations
 		if (filterTimeout) {
 			clearTimeout(filterTimeout);
 		}
-		
-		// Reset all animation classes first
-		$(".roadmap-tile").removeClass("filtering-out filtering-in");
 		
 		// Filter tiles with animation
 		$(".roadmap-tile").each(function () {
@@ -217,21 +227,19 @@
 			
 			if (shouldShow) {
 				// Show tile
+				$tile.removeClass("filtering-out");
 				if ($tile.is(":hidden")) {
-					$tile.show().addClass("filtering-in");
+					$tile.show();
 				}
 			} else {
 				// Hide tile with fade out
-				if ($tile.is(":visible")) {
-					$tile.addClass("filtering-out");
-				}
+				$tile.addClass("filtering-out");
 			}
 		});
 		
-		// After animation completes, clean up
+		// After animation completes, hide the filtered out tiles
 		filterTimeout = setTimeout(function() {
-			$(".roadmap-tile.filtering-out").hide().removeClass("filtering-out");
-			$(".roadmap-tile.filtering-in").removeClass("filtering-in");
+			$(".roadmap-tile.filtering-out").hide();
 		}, 300);
 	});
 
