@@ -164,32 +164,52 @@
 	$(window).on("load resize", function() {
 		setTimeout(updateNavScrollButtons, 100);
 	});
-	$(".navbar-nav-scroll").on("scroll", updateNavScrollButtons);
 	
-	// Also run on document ready
+	// Use event delegation for scroll container
+	$(document).on("scroll", ".navbar-nav-scroll", updateNavScrollButtons);
+	
+	// Also attach directly once DOM is ready
 	$(document).ready(function() {
+		$(".navbar-nav-scroll").on("scroll", updateNavScrollButtons);
 		setTimeout(updateNavScrollButtons, 200);
 	});
 	
-	$(".nav-scroll-btn--left").on("click", function () {
+	// Use event delegation for nav scroll buttons
+	$(document).on("click", ".nav-scroll-btn--left", function (e) {
+		e.preventDefault();
+		e.stopPropagation();
 		const scrollContainer = $(".navbar-nav-scroll");
-		const currentScroll = scrollContainer.scrollLeft();
-		const scrollAmount = 150;
+		if (!scrollContainer.length) return;
 		
-		scrollContainer.animate({ 
-			scrollLeft: Math.max(0, currentScroll - scrollAmount) 
-		}, 200, updateNavScrollButtons);
+		const currentScroll = scrollContainer[0].scrollLeft;
+		const scrollAmount = 150;
+		const newScroll = Math.max(0, currentScroll - scrollAmount);
+		
+		scrollContainer[0].scrollTo({
+			left: newScroll,
+			behavior: 'smooth'
+		});
+		
+		setTimeout(updateNavScrollButtons, 250);
 	});
 	
-	$(".nav-scroll-btn--right").on("click", function () {
+	$(document).on("click", ".nav-scroll-btn--right", function (e) {
+		e.preventDefault();
+		e.stopPropagation();
 		const scrollContainer = $(".navbar-nav-scroll");
-		const currentScroll = scrollContainer.scrollLeft();
-		const maxScroll = scrollContainer[0].scrollWidth - scrollContainer.width();
-		const scrollAmount = 150;
+		if (!scrollContainer.length) return;
 		
-		scrollContainer.animate({ 
-			scrollLeft: Math.min(maxScroll, currentScroll + scrollAmount) 
-		}, 200, updateNavScrollButtons);
+		const currentScroll = scrollContainer[0].scrollLeft;
+		const maxScroll = scrollContainer[0].scrollWidth - scrollContainer[0].clientWidth;
+		const scrollAmount = 150;
+		const newScroll = Math.min(maxScroll, currentScroll + scrollAmount);
+		
+		scrollContainer[0].scrollTo({
+			left: newScroll,
+			behavior: 'smooth'
+		});
+		
+		setTimeout(updateNavScrollButtons, 250);
 	});
 
 	// Roadmap Tile Filters
