@@ -3,9 +3,9 @@
 (function ($) {
 	// Smooth scroll with offset for nav links
 	function getScrollOffset() {
-		if (window.innerWidth >= 1400) return 160;
-		if (window.innerWidth >= 992) return 130;
-		return 100;
+		if (window.innerWidth >= 1400) return 130;
+		if (window.innerWidth >= 992) return 110;
+		return 80;
 	}
 	
 	$(document).on('click', 'a[href^="#"]', function(e) {
