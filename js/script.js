@@ -1,6 +1,28 @@
 "use strict";
 
 (function ($) {
+	// Smooth scroll with offset for nav links
+	function getScrollOffset() {
+		if (window.innerWidth >= 1400) return 160;
+		if (window.innerWidth >= 992) return 130;
+		return 100;
+	}
+	
+	$(document).on('click', 'a[href^="#"]', function(e) {
+		const href = $(this).attr('href');
+		if (href === '#' || href === '#!') return;
+		
+		const target = document.querySelector(href);
+		if (target) {
+			e.preventDefault();
+			const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - getScrollOffset();
+			window.scrollTo({
+				top: targetPosition,
+				behavior: 'smooth'
+			});
+		}
+	});
+
 	// Animate elements (only desktop).
 	if (window.matchMedia("(min-width: 769px)").matches) {
 		// Animate buttons.
