@@ -274,9 +274,11 @@
 			grid-template-columns: repeat(3, 1fr);
 			gap: 20px;
 			margin-bottom: 30px;
-			min-height: 340px;
+			min-height: 440px;
 			position: relative;
 			align-content: start;
+			grid-auto-rows: 200px;
+			grid-auto-flow: row dense;
 		}
 		.roadmap-empty-notice {
 			position: absolute;
@@ -1461,6 +1463,21 @@
 								</div>
 								<div class="section-faq__item-content">
 									<p>Subnets are independent blockchains that will run on the Cryft Network. They allow developers to create custom chains with their own rules, tokenomics, and validator sets while benefiting from Cryft's security and consensus.</p>
+								</div>
+							</li>
+							<li class="section-faq__item wow animate__animated animate__fadeInUp" data-wow-delay="0.5s">
+								<div class="section-faq__item-heading">
+									<h3 class="section-faq__item-title">What's a token vs a coin?</h3>
+									<span class="section-faq__item-icon">
+										<svg>
+											<use xlink:href="#faq-icon"></use>
+										</svg>
+									</span>
+								</div>
+								<div class="section-faq__item-content">
+									<p>A <strong>native coin</strong> is the primary currency of a blockchain that powers the network—used to pay transaction fees, secure the network through staking, and reward validators. Examples include ETH on Ethereum and BTC on Bitcoin.</p>
+									<p style="margin-top: 10px;">A <strong>token</strong> is a digital asset created on top of an existing blockchain using smart contracts. Tokens rely on the host blockchain's infrastructure and use its native coin for gas fees. The current CRYFT on BSC is a token.</p>
+									<p style="margin-top: 10px;">When Cryft Network launches, CRYFT will become a <strong>native coin</strong> powering our own Layer 1 blockchain, with migration options for existing token holders.</p>
 								</div>
 							</li>
 						</ul>
