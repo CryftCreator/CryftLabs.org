@@ -478,6 +478,55 @@
 			}
 		}
 		
+		/* Whitepaper Section Styling */
+		.section-whitepaper {
+			padding: 0 0 60px;
+			background: transparent;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+		}
+		.section-whitepaper__container {
+			position: relative;
+			z-index: 1;
+		}
+		.section-whitepaper__wrapper {
+			max-width: 700px;
+			margin: 0 auto;
+		}
+		.section-whitepaper__icon {
+			margin-bottom: 20px;
+			color: #fff;
+		}
+		.section-whitepaper__icon svg {
+			filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+		}
+		.section-whitepaper__title {
+			margin-bottom: 20px;
+		}
+		.section-whitepaper__text {
+			color: #888;
+			font-size: 16px;
+			line-height: 1.7;
+			margin-bottom: 30px;
+		}
+		.section-whitepaper__button {
+			display: flex;
+			justify-content: center;
+		}
+		@media (max-width: 767.98px) {
+			.section-whitepaper {
+				padding: 60px 0;
+			}
+			.section-whitepaper__icon svg {
+				width: 60px;
+				height: 60px;
+			}
+			.section-whitepaper__text {
+				font-size: 14px;
+			}
+		}
+		
 		/* Scroll offset for anchor links */
 		html {
 			scroll-padding-top: 70px;
@@ -788,6 +837,14 @@
 			<span class="d-lg-none">Twitch</span>
 		</a>
 	</li>
+	<li class="social__item">
+		<a class="d-flex text-decoration-none" href="https://whitepaper.cryft.net" target="_blank">
+			<svg width="35" height="35">
+				<use xlink:href="#whitepaper"></use>
+			</svg>
+			<span class="d-lg-none">Whitepaper</span>
+		</a>
+	</li>
 </ul>
 </div>
 
@@ -927,7 +984,7 @@
 							<h2 class="section-description__title nft-h2">The Journey of Cryft Labs</h2>
 							<p class="section-description__text">It all started during Thanksgiving 2021, when founder Chad Scully (CryftCreator) wanted to gift NFTs to friends and family. What began as a holiday gesture evolved into something much bigger.</p>
 							<p class="section-description__text">In January 2022, Cryft Coin launched, quickly gaining momentum and leading to a partnership with SafeMoon. When SafeMoon's eventual downfall came, we emerged stronger, taking all our hard-earned experience and pivoting toward building our own Layer 1 blockchain.</p>
-							<p class="section-description__text">Starting in 2024, we began developing the most modern and user-friendly blockchain for real-world applications. Now in 2025, the CryftGo and CryftTEE architecture represents the culmination of everything we have learned along the way.</p>
+							<p class="section-description__text">Starting in 2024, we began developing the most modern and user-friendly blockchain for real-world applications. Now in 2026, the CryftGo and CryftTEE architecture represents the culmination of everything we have learned along the way.</p>
 						</div>
 					</div>
 				</div>
@@ -1070,6 +1127,54 @@
 	</div>
 </div>
 </div></div>
+				</div>
+			</section>
+
+			<section id="whitepaper" class="section-whitepaper">
+				<div class="section-whitepaper__container container">
+					<div class="section-whitepaper__wrapper">
+						<h2 class="section-whitepaper__title nft-h2 wow animate__animated animate__slideInDown">Whitepaper</h2>
+						<p class="section-whitepaper__text wow animate__animated animate__slideInRight">Our whitepaper is a living document that evolves alongside the Cryft Network. Follow along as we build out the technical specifications, architecture details, and vision for the future of blockchain technology on our GitHub.</p>
+						<div class="section-whitepaper__button wow animate__animated animate__pulse" data-wow-delay="0.3s"><a
+	class="btn btn-animate btn-animate--primary"
+	href="https://whitepaper.cryft.net"
+	target="_blank"
+	rel="noopener noreferrer"
+	style="opacity: 1; visibility: inherit; overflow: visible"
+	><div class="btn-animate__container" style="transform: translate(0px, 0%)">
+		<div class="btn-animate__background btn-animate__background--primary"></div>
+		<div class="btn-animate__icon-mask">
+			<div class="btn-animate__icon-container">
+				<div
+					class="btn-animate__icon-background btn-animate__icon-background--primary"
+					style="opacity: 0; visibility: hidden"
+				></div>
+				<svg
+					viewBox="0 0 7 4"
+					class="btn-animate__icon btn-animate__icon--primary"
+					fill="currentColor"
+					style="
+						transform: translate(-25px, 0px) rotate(-90deg);
+						opacity: 0;
+						visibility: hidden;
+					"
+				>
+					<path
+						d="M3.5 2.4L.9.1l-.9 1 3.1 2.7c.3.2.7.2.9 0L7 1 6 0 3.5 2.4z"
+						fill-rule="evenodd"
+					></path>
+				</svg>
+			</div>
+		</div>
+		<div
+			class="btn-animate__text-container"
+			style="transform: translate3d(0em, 0px, 0px)"
+		>
+			<p class="btn-animate__text btn-animate__text--primary">Read the Whitepaper</p>
+		</div>
+	</div></a
+></div>
+					</div>
 				</div>
 			</section>
 
@@ -1531,6 +1636,14 @@
 			<span class="d-lg-none">Twitch</span>
 		</a>
 	</li>
+	<li class="social__item">
+		<a class="d-flex text-decoration-none" href="https://whitepaper.cryft.net" target="_blank">
+			<svg width="35" height="35">
+				<use xlink:href="#whitepaper"></use>
+			</svg>
+			<span class="d-lg-none">Whitepaper</span>
+		</a>
+	</li>
 </ul>
 </div>
 			</div>
@@ -1980,6 +2093,11 @@
 	><svg viewBox="0 0 35 35" fill="none" id="twitch" xmlns="http://www.w3.org/2000/svg">
 		<path d="M10.5 7L8 12.25v14h5.25V29h3.5l2.625-2.75h4.375L29 21V7H10.5zm15.75 12.25l-3.5 3.5h-5.25l-2.625 2.625v-2.625H10.5v-14h15.75v10.5z" fill="currentColor"/>
 		<path d="M21 11.375h2.625v7H21v-7zM15.75 11.375h2.625v7H15.75v-7z" fill="currentColor"/>
+	</svg
+	><svg viewBox="0 0 35 35" fill="none" id="whitepaper" xmlns="http://www.w3.org/2000/svg">
+		<path d="M10 6h10l7 7v16a2 2 0 01-2 2H10a2 2 0 01-2-2V8a2 2 0 012-2z" fill="currentColor"/>
+		<path d="M19 6v8h8" fill="none" stroke="#222" stroke-width="1.5"/>
+		<path d="M12 17h11M12 21h11M12 25h7" stroke="#222" stroke-width="1.5" stroke-linecap="round"/>
 	</svg>
 </svg>
 
