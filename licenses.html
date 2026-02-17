@@ -44,28 +44,56 @@
 			font-size: 16px;
 			line-height: 1.7;
 			max-width: 650px;
-			margin: 0 auto 50px;
+			margin: 0 auto 24px;
+		}
+		.licenses-page__stats {
+			display: flex;
+			justify-content: center;
+			gap: 32px;
+			flex-wrap: wrap;
+			margin-bottom: 50px;
+		}
+		.licenses-page__stat {
+			text-align: center;
+		}
+		.licenses-page__stat-number {
+			font-size: 28px;
+			font-weight: 600;
+			color: #fff;
+			display: block;
+			line-height: 1;
+			margin-bottom: 4px;
+		}
+		.licenses-page__stat-label {
+			font-size: 12px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			color: #666;
 		}
 
 		/* License Group */
 		.license-group {
-			margin-bottom: 48px;
+			margin-bottom: 40px;
 		}
 		.license-group__header {
 			display: flex;
 			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 16px;
+		}
+		.license-group__left {
+			display: flex;
+			align-items: center;
 			gap: 12px;
-			margin-bottom: 20px;
-			padding-bottom: 12px;
-			border-bottom: 1px solid #333;
 		}
 		.license-group__badge {
 			display: inline-flex;
 			align-items: center;
 			gap: 6px;
-			padding: 5px 14px;
-			border-radius: 20px;
-			font-size: 13px;
+			padding: 4px 10px;
+			border-radius: 12px;
+			font-size: 11px;
 			font-weight: 600;
 			text-transform: uppercase;
 			letter-spacing: 0.5px;
@@ -96,16 +124,24 @@
 			background: rgba(102, 102, 102, 0.15);
 			color: #888;
 		}
+		.license-group__name {
+			font-size: 18px;
+			font-weight: 600;
+			color: #fff;
+		}
 		.license-group__count {
 			color: #666;
-			font-size: 13px;
+			font-size: 12px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1px;
 		}
 
-		/* Repo Cards */
+		/* Repo Cards — mirrors roadmap-tile styling */
 		.repo-grid {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
-			gap: 16px;
+			gap: 20px;
 		}
 		@media (max-width: 992px) {
 			.repo-grid { grid-template-columns: repeat(2, 1fr); }
@@ -117,37 +153,62 @@
 			background: rgba(0,0,0,0.4);
 			border: 1px solid #333;
 			border-radius: 12px;
-			padding: 20px;
-			transition: border-color 0.3s, transform 0.3s;
+			padding: 24px;
+			transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 			text-decoration: none;
 			display: flex;
 			flex-direction: column;
+			position: relative;
+			overflow: hidden;
 		}
 		.repo-card:hover {
 			border-color: #555;
 			transform: translateY(-2px);
 			text-decoration: none;
 		}
+		/* Colored left border per license type */
+		.license-group--bsd .repo-card    { border-left: 3px solid #20c997; }
+		.license-group--apache .repo-card { border-left: 3px solid #F0B90B; }
+		.license-group--mit .repo-card    { border-left: 3px solid #63b3ed; }
+		.license-group--lgpl .repo-card   { border-left: 3px solid #b794f4; }
+		.license-group--other .repo-card  { border-left: 3px solid #a0a0a0; }
+		.license-group--none .repo-card   { border-left: 3px solid #666; }
+
+		.repo-card__header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 12px;
+			flex-shrink: 0;
+		}
 		.repo-card__name {
-			font-size: 16px;
+			font-size: 18px;
 			font-weight: 600;
 			color: #fff;
-			margin-bottom: 6px;
 			word-break: break-all;
 		}
+		.repo-card__github-icon {
+			color: #555;
+			flex-shrink: 0;
+			transition: color 0.2s;
+		}
+		.repo-card:hover .repo-card__github-icon {
+			color: #999;
+		}
 		.repo-card__desc {
-			font-size: 13px;
-			color: #888;
-			line-height: 1.5;
+			font-size: 14px;
+			color: #999;
+			line-height: 1.6;
 			flex: 1;
-			margin-bottom: 10px;
+			margin-bottom: 14px;
 		}
 		.repo-card__meta {
 			display: flex;
 			align-items: center;
-			gap: 12px;
+			gap: 14px;
 			font-size: 12px;
 			color: #666;
+			flex-shrink: 0;
 		}
 		.repo-card__lang {
 			display: inline-flex;
@@ -155,8 +216,8 @@
 			gap: 5px;
 		}
 		.repo-card__lang-dot {
-			width: 8px;
-			height: 8px;
+			width: 10px;
+			height: 10px;
 			border-radius: 50%;
 			flex-shrink: 0;
 		}
@@ -173,24 +234,48 @@
 
 		/* Coming Soon CTA card */
 		.licensing-cta {
-			background: rgba(0,0,0,0.5);
+			background: rgba(0,0,0,0.4);
 			border: 1px solid #333;
-			border-radius: 16px;
-			padding: 48px 32px;
+			border-radius: 12px;
+			padding: 56px 40px;
 			text-align: center;
-			margin-top: 60px;
+			margin-top: 48px;
+			position: relative;
+			overflow: hidden;
+		}
+		.licensing-cta::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 3px;
+			background: linear-gradient(90deg, #20c997, #F0B90B, #63b3ed, #b794f4);
 		}
 		.licensing-cta__badge {
-			display: inline-block;
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
 			background: rgba(240, 185, 11, 0.15);
 			color: #F0B90B;
-			font-size: 12px;
-			font-weight: 700;
+			font-size: 11px;
+			font-weight: 600;
 			text-transform: uppercase;
-			letter-spacing: 1.5px;
-			padding: 6px 16px;
-			border-radius: 20px;
-			margin-bottom: 20px;
+			letter-spacing: 0.5px;
+			padding: 4px 10px;
+			border-radius: 12px;
+			margin-bottom: 24px;
+		}
+		.licensing-cta__badge-dot {
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: #F0B90B;
+			animation: pulse-dot 1.5s ease-in-out infinite;
+		}
+		@keyframes pulse-dot {
+			0%, 100% { opacity: 1; }
+			50% { opacity: 0.4; }
 		}
 		.licensing-cta__title {
 			color: #fff;
@@ -199,16 +284,16 @@
 			margin-bottom: 14px;
 		}
 		.licensing-cta__text {
-			color: #888;
-			font-size: 15px;
-			line-height: 1.7;
+			color: #999;
+			font-size: 14px;
+			line-height: 1.6;
 			max-width: 520px;
-			margin: 0 auto 28px;
+			margin: 0 auto 32px;
 		}
 		.licensing-cta__contacts {
 			display: flex;
 			justify-content: center;
-			gap: 24px;
+			gap: 12px;
 			flex-wrap: wrap;
 		}
 		.licensing-cta__contact {
@@ -219,14 +304,15 @@
 			text-decoration: none;
 			font-size: 14px;
 			padding: 10px 20px;
-			border: 1px solid #444;
-			border-radius: 8px;
-			transition: all 0.2s;
+			border: 1px solid #333;
+			border-radius: 12px;
+			transition: all 0.3s ease;
 			background: rgba(0,0,0,0.3);
 		}
 		.licensing-cta__contact:hover {
-			border-color: #666;
+			border-color: #555;
 			color: #fff;
+			transform: translateY(-2px);
 		}
 		.licensing-cta__contact svg {
 			width: 18px;
@@ -305,64 +391,106 @@
 				<h1 class="licenses-page__title nft-h2">Open-Source Licenses</h1>
 				<p class="licenses-page__subtitle">A summary of the software licenses used across all public repositories in the <a href="https://github.com/cryft-labs" target="_blank" style="color:#20c997;text-decoration:none;">cryft-labs</a> GitHub organization.</p>
 
+				<div class="licenses-page__stats">
+					<div class="licenses-page__stat">
+						<span class="licenses-page__stat-number">21</span>
+						<span class="licenses-page__stat-label">Repos</span>
+					</div>
+					<div class="licenses-page__stat">
+						<span class="licenses-page__stat-number">5</span>
+						<span class="licenses-page__stat-label">License Types</span>
+					</div>
+					<div class="licenses-page__stat">
+						<span class="licenses-page__stat-number">8</span>
+						<span class="licenses-page__stat-label">Languages</span>
+					</div>
+				</div>
+
 				<!-- BSD 3-Clause -->
-				<div class="license-group">
+				<div class="license-group license-group--bsd">
 					<div class="license-group__header">
-						<span class="license-group__badge license-group__badge--bsd">BSD 3-Clause</span>
-						<span class="license-group__count">8 repositories</span>
+						<div class="license-group__left">
+							<span class="license-group__badge license-group__badge--bsd">BSD 3-Clause</span>
+							<span class="license-group__name">BSD 3-Clause "New" or "Revised" License</span>
+						</div>
+						<span class="license-group__count">8 repos</span>
 					</div>
 					<div class="repo-grid">
 						<a class="repo-card" href="https://github.com/cryft-labs/cryftgo" target="_blank">
-							<div class="repo-card__name">cryftgo</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryftgo</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Go implementation of a Cryft Network node.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/cryft-wallet-sdk" target="_blank">
-							<div class="repo-card__name">cryft-wallet-sdk</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryft-wallet-sdk</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">A TypeScript library to create and manage wallets on the Cryft network.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-ts"></span>TypeScript</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/cryftjs" target="_blank">
-							<div class="repo-card__name">cryftjs</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryftjs</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Build on and interact with Cryft Network using CryftJS.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-ts"></span>TypeScript</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/apm" target="_blank">
-							<div class="repo-card__name">apm</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">apm</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Cryft Plugin Manager.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/cryft-cli" target="_blank">
-							<div class="repo-card__name">cryft-cli</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryft-cli</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Cryft CLI tool.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/spacesvm" target="_blank">
-							<div class="repo-card__name">spacesvm</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">spacesvm</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Spaces Virtual Machine.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/cryft-plugins-core" target="_blank">
-							<div class="repo-card__name">cryft-plugins-core</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryft-plugins-core</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Core plugins for Cryft Network.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-other"></span></span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/cryft-wallet" target="_blank">
-							<div class="repo-card__name">cryft-wallet</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryft-wallet</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">The Cryft web wallet.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-vue"></span>Vue</span>
@@ -372,21 +500,30 @@
 				</div>
 
 				<!-- Apache License 2.0 -->
-				<div class="license-group">
+				<div class="license-group license-group--apache">
 					<div class="license-group__header">
-						<span class="license-group__badge license-group__badge--apache">Apache 2.0</span>
-						<span class="license-group__count">2 repositories</span>
+						<div class="license-group__left">
+							<span class="license-group__badge license-group__badge--apache">Apache 2.0</span>
+							<span class="license-group__name">Apache License 2.0</span>
+						</div>
+						<span class="license-group__count">2 repos</span>
 					</div>
 					<div class="repo-grid">
 						<a class="repo-card" href="https://github.com/cryft-labs/dakota-network" target="_blank">
-							<div class="repo-card__name">dakota-network</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">dakota-network</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">A complete node &amp; tool package for the Dakota Network.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-solidity"></span>Solidity</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/ledger-cryft" target="_blank">
-							<div class="repo-card__name">ledger-cryft</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">ledger-cryft</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Ledger hardware wallet integration for Cryft.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-rust"></span>Rust</span>
@@ -396,21 +533,30 @@
 				</div>
 
 				<!-- MIT License -->
-				<div class="license-group">
+				<div class="license-group license-group--mit">
 					<div class="license-group__header">
-						<span class="license-group__badge license-group__badge--mit">MIT</span>
-						<span class="license-group__count">2 repositories</span>
+						<div class="license-group__left">
+							<span class="license-group__badge license-group__badge--mit">MIT</span>
+							<span class="license-group__name">MIT License</span>
+						</div>
+						<span class="license-group__count">2 repos</span>
 					</div>
 					<div class="repo-grid">
 						<a class="repo-card" href="https://github.com/cryft-labs/wireguard-install" target="_blank">
-							<div class="repo-card__name">wireguard-install</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">wireguard-install</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">WireGuard VPN installer for Linux servers.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-shell"></span>Shell</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/cryft-link-tree-html" target="_blank">
-							<div class="repo-card__name">cryft-link-tree-html</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryft-link-tree-html</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">A link tree and details page for Cryft Network.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-css"></span>CSS</span>
@@ -420,14 +566,20 @@
 				</div>
 
 				<!-- LGPL-3.0 -->
-				<div class="license-group">
+				<div class="license-group license-group--lgpl">
 					<div class="license-group__header">
-						<span class="license-group__badge license-group__badge--lgpl">LGPL-3.0</span>
-						<span class="license-group__count">1 repository</span>
+						<div class="license-group__left">
+							<span class="license-group__badge license-group__badge--lgpl">LGPL-3.0</span>
+							<span class="license-group__name">GNU Lesser General Public License v3.0</span>
+						</div>
+						<span class="license-group__count">1 repo</span>
 					</div>
 					<div class="repo-grid">
 						<a class="repo-card" href="https://github.com/cryft-labs/subnet-evm" target="_blank">
-							<div class="repo-card__name">subnet-evm</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">subnet-evm</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Launch your own EVM as a Cryft Subnet.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
@@ -437,42 +589,60 @@
 				</div>
 
 				<!-- Other / Custom -->
-				<div class="license-group">
+				<div class="license-group license-group--other">
 					<div class="license-group__header">
-						<span class="license-group__badge license-group__badge--other">Other / Custom</span>
-						<span class="license-group__count">4 repositories</span>
+						<div class="license-group__left">
+							<span class="license-group__badge license-group__badge--other">Other</span>
+							<span class="license-group__name">Other / Custom Licenses</span>
+						</div>
+						<span class="license-group__count">5 repos</span>
 					</div>
 					<div class="repo-grid">
 						<a class="repo-card" href="https://github.com/cryft-labs/cryftnet-whitepaper" target="_blank">
-							<div class="repo-card__name">cryftnet-whitepaper</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryftnet-whitepaper</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">A living Cryft Network whitepaper.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-python"></span>Python</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/cryfttee" target="_blank">
-							<div class="repo-card__name">cryfttee</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryfttee</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Rust implementation of the CryftTEE Trusted Execution Environment.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-rust"></span>Rust</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/coreth" target="_blank">
-							<div class="repo-card__name">coreth</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">coreth</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Code and wrapper to extract Ethereum blockchain functionalities without network/consensus, for building custom blockchain services.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/Cryft-0xVanity-Tool-Python" target="_blank">
-							<div class="repo-card__name">Cryft-0xVanity-Tool-Python</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">Cryft-0xVanity-Tool-Python</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">A simple tool to predict contract and EOA 0x addresses from a generated or provided nonce and private key.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-python"></span>Python</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/cryft-faucet" target="_blank">
-							<div class="repo-card__name">cryft-faucet</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryft-faucet</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Cryft Faucet for Fuji Network and Subnets.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-ts"></span>TypeScript</span>
@@ -482,28 +652,40 @@
 				</div>
 
 				<!-- No License Specified -->
-				<div class="license-group">
+				<div class="license-group license-group--none">
 					<div class="license-group__header">
-						<span class="license-group__badge license-group__badge--none">No License Specified</span>
-						<span class="license-group__count">4 repositories</span>
+						<div class="license-group__left">
+							<span class="license-group__badge license-group__badge--none">Unlicensed</span>
+							<span class="license-group__name">No License Specified</span>
+						</div>
+						<span class="license-group__count">3 repos</span>
 					</div>
 					<div class="repo-grid">
 						<a class="repo-card" href="https://github.com/cryft-labs/.github" target="_blank">
-							<div class="repo-card__name">.github</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">.github</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Organization profile and configuration.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-other"></span></span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/cryft-token" target="_blank">
-							<div class="repo-card__name">cryft-token</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">cryft-token</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">A Solidity implementation of Cryft Token V3.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-solidity"></span>Solidity</span>
 							</div>
 						</a>
 						<a class="repo-card" href="https://github.com/cryft-labs/CryftHRP" target="_blank">
-							<div class="repo-card__name">CryftHRP</div>
+							<div class="repo-card__header">
+								<div class="repo-card__name">CryftHRP</div>
+								<svg class="repo-card__github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							</div>
 							<div class="repo-card__desc">Generate cryft HRP address for Cryft Network.</div>
 							<div class="repo-card__meta">
 								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
@@ -514,7 +696,7 @@
 
 				<!-- Coming Soon CTA -->
 				<div class="licensing-cta">
-					<div class="licensing-cta__badge">Coming Soon</div>
+					<div class="licensing-cta__badge"><span class="licensing-cta__badge-dot"></span> Coming Soon</div>
 					<h2 class="licensing-cta__title">Enterprise &amp; Commercial Licensing</h2>
 					<p class="licensing-cta__text">Interested in using Cryft Labs technology under a commercial or enterprise license? We're working on flexible licensing options. Reach out to learn more.</p>
 					<div class="licensing-cta__contacts">
