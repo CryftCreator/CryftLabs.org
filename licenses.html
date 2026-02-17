@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="white" />
+	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#222222" />
+
+	<!-- SEO Meta Tags -->
+	<meta name="description" content="Open-source licenses used across Cryft Labs repositories on GitHub. BSD-3-Clause, Apache 2.0, MIT, LGPL-3.0, and more." />
+	<meta name="keywords" content="Cryft Labs, licenses, open source, BSD, Apache, MIT, LGPL, GitHub" />
+	<meta name="author" content="Cryft Labs" />
+	<meta name="robots" content="index, follow" />
+
+	<!-- Open Graph -->
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://cryftlabs.org/licenses" />
+	<meta property="og:title" content="Cryft Labs - Licenses" />
+	<meta property="og:description" content="Open-source licenses used across Cryft Labs repositories." />
+	<meta property="og:image" content="https://cryftlabs.org/img/og-image.jpg" />
+	<meta property="og:site_name" content="Cryft Labs" />
+
+	<!-- CSS Styles -->
+	<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500&family=Dela+Gothic+One&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/vendor/animate.css" />
+	<link rel="stylesheet" href="css/style.min.css" />
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<title>Licenses - Cryft Labs</title>
+	<style>
+		/* ---- Licenses Page ---- */
+		.licenses-page {
+			padding: 140px 0 80px;
+			min-height: 100vh;
+		}
+		.licenses-page__title {
+			text-align: center;
+			margin-bottom: 16px;
+		}
+		.licenses-page__subtitle {
+			text-align: center;
+			color: #888;
+			font-size: 16px;
+			line-height: 1.7;
+			max-width: 650px;
+			margin: 0 auto 50px;
+		}
+
+		/* License Group */
+		.license-group {
+			margin-bottom: 48px;
+		}
+		.license-group__header {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 20px;
+			padding-bottom: 12px;
+			border-bottom: 1px solid #333;
+		}
+		.license-group__badge {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 5px 14px;
+			border-radius: 20px;
+			font-size: 13px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			white-space: nowrap;
+			flex-shrink: 0;
+		}
+		.license-group__badge--bsd {
+			background: rgba(32, 201, 151, 0.15);
+			color: #20c997;
+		}
+		.license-group__badge--apache {
+			background: rgba(240, 185, 11, 0.15);
+			color: #F0B90B;
+		}
+		.license-group__badge--mit {
+			background: rgba(99, 179, 237, 0.15);
+			color: #63b3ed;
+		}
+		.license-group__badge--lgpl {
+			background: rgba(183, 148, 244, 0.15);
+			color: #b794f4;
+		}
+		.license-group__badge--other {
+			background: rgba(160, 160, 160, 0.15);
+			color: #a0a0a0;
+		}
+		.license-group__badge--none {
+			background: rgba(102, 102, 102, 0.15);
+			color: #888;
+		}
+		.license-group__count {
+			color: #666;
+			font-size: 13px;
+		}
+
+		/* Repo Cards */
+		.repo-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 16px;
+		}
+		@media (max-width: 992px) {
+			.repo-grid { grid-template-columns: repeat(2, 1fr); }
+		}
+		@media (max-width: 576px) {
+			.repo-grid { grid-template-columns: 1fr; }
+		}
+		.repo-card {
+			background: rgba(0,0,0,0.4);
+			border: 1px solid #333;
+			border-radius: 12px;
+			padding: 20px;
+			transition: border-color 0.3s, transform 0.3s;
+			text-decoration: none;
+			display: flex;
+			flex-direction: column;
+		}
+		.repo-card:hover {
+			border-color: #555;
+			transform: translateY(-2px);
+			text-decoration: none;
+		}
+		.repo-card__name {
+			font-size: 16px;
+			font-weight: 600;
+			color: #fff;
+			margin-bottom: 6px;
+			word-break: break-all;
+		}
+		.repo-card__desc {
+			font-size: 13px;
+			color: #888;
+			line-height: 1.5;
+			flex: 1;
+			margin-bottom: 10px;
+		}
+		.repo-card__meta {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			font-size: 12px;
+			color: #666;
+		}
+		.repo-card__lang {
+			display: inline-flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.repo-card__lang-dot {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			flex-shrink: 0;
+		}
+		.lang-go        { background: #00ADD8; }
+		.lang-rust      { background: #DEA584; }
+		.lang-ts        { background: #3178C6; }
+		.lang-js        { background: #F7DF1E; }
+		.lang-solidity  { background: #AA6746; }
+		.lang-python    { background: #3572A5; }
+		.lang-shell     { background: #89E051; }
+		.lang-css       { background: #563D7C; }
+		.lang-vue       { background: #41B883; }
+		.lang-other     { background: #666; }
+
+		/* Coming Soon CTA card */
+		.licensing-cta {
+			background: rgba(0,0,0,0.5);
+			border: 1px solid #333;
+			border-radius: 16px;
+			padding: 48px 32px;
+			text-align: center;
+			margin-top: 60px;
+		}
+		.licensing-cta__badge {
+			display: inline-block;
+			background: rgba(240, 185, 11, 0.15);
+			color: #F0B90B;
+			font-size: 12px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
+			padding: 6px 16px;
+			border-radius: 20px;
+			margin-bottom: 20px;
+		}
+		.licensing-cta__title {
+			color: #fff;
+			font-size: 28px;
+			font-weight: 600;
+			margin-bottom: 14px;
+		}
+		.licensing-cta__text {
+			color: #888;
+			font-size: 15px;
+			line-height: 1.7;
+			max-width: 520px;
+			margin: 0 auto 28px;
+		}
+		.licensing-cta__contacts {
+			display: flex;
+			justify-content: center;
+			gap: 24px;
+			flex-wrap: wrap;
+		}
+		.licensing-cta__contact {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			color: #aaa;
+			text-decoration: none;
+			font-size: 14px;
+			padding: 10px 20px;
+			border: 1px solid #444;
+			border-radius: 8px;
+			transition: all 0.2s;
+			background: rgba(0,0,0,0.3);
+		}
+		.licensing-cta__contact:hover {
+			border-color: #666;
+			color: #fff;
+		}
+		.licensing-cta__contact svg {
+			width: 18px;
+			height: 18px;
+			flex-shrink: 0;
+		}
+
+		/* Back link */
+		.licenses-back {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			color: #888;
+			text-decoration: none;
+			font-size: 14px;
+			margin-bottom: 30px;
+			transition: color 0.2s;
+		}
+		.licenses-back:hover {
+			color: #fff;
+		}
+		.licenses-back svg {
+			width: 16px;
+			height: 16px;
+		}
+	</style>
+</head>
+<body class="theme-dark">
+	<header class="header">
+	<div class="container">
+		<nav class="header__navbar navbar navbar-expand-lg">
+			<a class="navbar-brand" href="./index.html">
+				<img src="img/logo-dark.svg" alt="" />
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarContent">
+				<div class="navbar-nav-wrapper">
+					<div class="navbar-nav-scroll">
+						<ul class="navbar-nav list-unstyled">
+							<li class="nav-item">
+								<a class="nav-link" href="./index.html#about">About</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="./index.html#technology">Technology</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="./index.html#roadmap">Roadmap</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="./index.html#community">Community</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="./index.html#faq">FAQ</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="./licenses.html">Licenses</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+</header>
+
+	<main class="main m-0 p-0">
+		<section class="licenses-page">
+			<div class="container">
+				<a href="./index.html" class="licenses-back">
+					<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+					Back to Home
+				</a>
+
+				<h1 class="licenses-page__title nft-h2">Open-Source Licenses</h1>
+				<p class="licenses-page__subtitle">A summary of the software licenses used across all public repositories in the <a href="https://github.com/cryft-labs" target="_blank" style="color:#20c997;text-decoration:none;">cryft-labs</a> GitHub organization.</p>
+
+				<!-- BSD 3-Clause -->
+				<div class="license-group">
+					<div class="license-group__header">
+						<span class="license-group__badge license-group__badge--bsd">BSD 3-Clause</span>
+						<span class="license-group__count">8 repositories</span>
+					</div>
+					<div class="repo-grid">
+						<a class="repo-card" href="https://github.com/cryft-labs/cryftgo" target="_blank">
+							<div class="repo-card__name">cryftgo</div>
+							<div class="repo-card__desc">Go implementation of a Cryft Network node.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/cryft-wallet-sdk" target="_blank">
+							<div class="repo-card__name">cryft-wallet-sdk</div>
+							<div class="repo-card__desc">A TypeScript library to create and manage wallets on the Cryft network.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-ts"></span>TypeScript</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/cryftjs" target="_blank">
+							<div class="repo-card__name">cryftjs</div>
+							<div class="repo-card__desc">Build on and interact with Cryft Network using CryftJS.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-ts"></span>TypeScript</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/apm" target="_blank">
+							<div class="repo-card__name">apm</div>
+							<div class="repo-card__desc">Cryft Plugin Manager.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/cryft-cli" target="_blank">
+							<div class="repo-card__name">cryft-cli</div>
+							<div class="repo-card__desc">Cryft CLI tool.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/spacesvm" target="_blank">
+							<div class="repo-card__name">spacesvm</div>
+							<div class="repo-card__desc">Spaces Virtual Machine.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/cryft-plugins-core" target="_blank">
+							<div class="repo-card__name">cryft-plugins-core</div>
+							<div class="repo-card__desc">Core plugins for Cryft Network.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-other"></span></span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/cryft-wallet" target="_blank">
+							<div class="repo-card__name">cryft-wallet</div>
+							<div class="repo-card__desc">The Cryft web wallet.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-vue"></span>Vue</span>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<!-- Apache License 2.0 -->
+				<div class="license-group">
+					<div class="license-group__header">
+						<span class="license-group__badge license-group__badge--apache">Apache 2.0</span>
+						<span class="license-group__count">2 repositories</span>
+					</div>
+					<div class="repo-grid">
+						<a class="repo-card" href="https://github.com/cryft-labs/dakota-network" target="_blank">
+							<div class="repo-card__name">dakota-network</div>
+							<div class="repo-card__desc">A complete node &amp; tool package for the Dakota Network.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-solidity"></span>Solidity</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/ledger-cryft" target="_blank">
+							<div class="repo-card__name">ledger-cryft</div>
+							<div class="repo-card__desc">Ledger hardware wallet integration for Cryft.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-rust"></span>Rust</span>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<!-- MIT License -->
+				<div class="license-group">
+					<div class="license-group__header">
+						<span class="license-group__badge license-group__badge--mit">MIT</span>
+						<span class="license-group__count">2 repositories</span>
+					</div>
+					<div class="repo-grid">
+						<a class="repo-card" href="https://github.com/cryft-labs/wireguard-install" target="_blank">
+							<div class="repo-card__name">wireguard-install</div>
+							<div class="repo-card__desc">WireGuard VPN installer for Linux servers.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-shell"></span>Shell</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/cryft-link-tree-html" target="_blank">
+							<div class="repo-card__name">cryft-link-tree-html</div>
+							<div class="repo-card__desc">A link tree and details page for Cryft Network.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-css"></span>CSS</span>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<!-- LGPL-3.0 -->
+				<div class="license-group">
+					<div class="license-group__header">
+						<span class="license-group__badge license-group__badge--lgpl">LGPL-3.0</span>
+						<span class="license-group__count">1 repository</span>
+					</div>
+					<div class="repo-grid">
+						<a class="repo-card" href="https://github.com/cryft-labs/subnet-evm" target="_blank">
+							<div class="repo-card__name">subnet-evm</div>
+							<div class="repo-card__desc">Launch your own EVM as a Cryft Subnet.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<!-- Other / Custom -->
+				<div class="license-group">
+					<div class="license-group__header">
+						<span class="license-group__badge license-group__badge--other">Other / Custom</span>
+						<span class="license-group__count">4 repositories</span>
+					</div>
+					<div class="repo-grid">
+						<a class="repo-card" href="https://github.com/cryft-labs/cryftnet-whitepaper" target="_blank">
+							<div class="repo-card__name">cryftnet-whitepaper</div>
+							<div class="repo-card__desc">A living Cryft Network whitepaper.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-python"></span>Python</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/cryfttee" target="_blank">
+							<div class="repo-card__name">cryfttee</div>
+							<div class="repo-card__desc">Rust implementation of the CryftTEE Trusted Execution Environment.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-rust"></span>Rust</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/coreth" target="_blank">
+							<div class="repo-card__name">coreth</div>
+							<div class="repo-card__desc">Code and wrapper to extract Ethereum blockchain functionalities without network/consensus, for building custom blockchain services.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/Cryft-0xVanity-Tool-Python" target="_blank">
+							<div class="repo-card__name">Cryft-0xVanity-Tool-Python</div>
+							<div class="repo-card__desc">A simple tool to predict contract and EOA 0x addresses from a generated or provided nonce and private key.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-python"></span>Python</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/cryft-faucet" target="_blank">
+							<div class="repo-card__name">cryft-faucet</div>
+							<div class="repo-card__desc">Cryft Faucet for Fuji Network and Subnets.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-ts"></span>TypeScript</span>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<!-- No License Specified -->
+				<div class="license-group">
+					<div class="license-group__header">
+						<span class="license-group__badge license-group__badge--none">No License Specified</span>
+						<span class="license-group__count">4 repositories</span>
+					</div>
+					<div class="repo-grid">
+						<a class="repo-card" href="https://github.com/cryft-labs/.github" target="_blank">
+							<div class="repo-card__name">.github</div>
+							<div class="repo-card__desc">Organization profile and configuration.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-other"></span></span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/cryft-token" target="_blank">
+							<div class="repo-card__name">cryft-token</div>
+							<div class="repo-card__desc">A Solidity implementation of Cryft Token V3.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-solidity"></span>Solidity</span>
+							</div>
+						</a>
+						<a class="repo-card" href="https://github.com/cryft-labs/CryftHRP" target="_blank">
+							<div class="repo-card__name">CryftHRP</div>
+							<div class="repo-card__desc">Generate cryft HRP address for Cryft Network.</div>
+							<div class="repo-card__meta">
+								<span class="repo-card__lang"><span class="repo-card__lang-dot lang-go"></span>Go</span>
+							</div>
+						</a>
+					</div>
+				</div>
+
+				<!-- Coming Soon CTA -->
+				<div class="licensing-cta">
+					<div class="licensing-cta__badge">Coming Soon</div>
+					<h2 class="licensing-cta__title">Enterprise &amp; Commercial Licensing</h2>
+					<p class="licensing-cta__text">Interested in using Cryft Labs technology under a commercial or enterprise license? We're working on flexible licensing options. Reach out to learn more.</p>
+					<div class="licensing-cta__contacts">
+						<a class="licensing-cta__contact" href="mailto:licensing@cryftlabs.org">
+							<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+							licensing@cryftlabs.org
+						</a>
+						<a class="licensing-cta__contact" href="https://discord.gg/cryft" target="_blank">
+							<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 00-.079.036c-.21.369-.444.85-.608 1.23a18.565 18.565 0 00-5.487 0 12.36 12.36 0 00-.617-1.23A.077.077 0 008.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 00-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 00.031.055 20.03 20.03 0 005.993 2.98.078.078 0 00.084-.026c.462-.62.874-1.275 1.226-1.963a.074.074 0 00-.041-.104 13.202 13.202 0 01-1.872-.878.075.075 0 01-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 01.078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 01.079.009c.12.098.245.195.372.288a.075.075 0 01-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 00-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 00.084.028 19.963 19.963 0 006.002-2.981.076.076 0 00.032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 00-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/></svg>
+							Discord
+						</a>
+						<a class="licensing-cta__contact" href="https://github.com/cryft-labs" target="_blank">
+							<svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+							GitHub
+						</a>
+						<a class="licensing-cta__contact" href="https://x.com/cryftlabs" target="_blank">
+							<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+							X / Twitter
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="footer__container container">
+			<div class="row">
+				<div class="col-12">
+					<div class="footer__social">
+						<ul class="social__list">
+							<li class="social__item">
+								<a class="d-flex text-decoration-none" href="https://github.com/cryft-labs" target="_blank">
+									<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 6C11.148 6 6 11.148 6 17.5c0 5.084 3.292 9.395 7.863 10.918.575.106.784-.25.784-.555 0-.273-.01-.997-.016-1.958-3.198.695-3.874-1.54-3.874-1.54-.523-1.328-1.277-1.682-1.277-1.682-1.044-.713.079-.699.079-.699 1.154.081 1.761 1.185 1.761 1.185 1.026 1.758 2.691 1.25 3.347.955.105-.743.401-1.25.73-1.538-2.552-.29-5.237-1.276-5.237-5.68 0-1.255.448-2.28 1.184-3.084-.119-.29-.513-1.46.112-3.043 0 0 .965-.309 3.162 1.178a11.02 11.02 0 012.88-.388c.977.005 1.961.132 2.88.388 2.195-1.487 3.158-1.178 3.158-1.178.627 1.583.233 2.753.114 3.043.737.804 1.182 1.829 1.182 3.084 0 4.415-2.688 5.387-5.248 5.67.413.355.78 1.056.78 2.129 0 1.537-.014 2.777-.014 3.154 0 .308.207.666.79.553C25.71 26.892 29 22.582 29 17.5 29 11.148 23.852 6 17.5 6z" fill="currentColor"/></svg>
+									<span class="d-lg-none">GitHub</span>
+								</a>
+							</li>
+							<li class="social__item">
+								<a class="d-flex text-decoration-none" href="https://discord.gg/cryft" target="_blank">
+									<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path d="M28.935 8.994a23.13 23.13 0 00-5.705-1.77.087.087 0 00-.092.043c-.246.438-.519.99-.71 1.432a21.345 21.345 0 00-6.41 0 14.555 14.555 0 00-.72-1.432.09.09 0 00-.092-.043 23.053 23.053 0 00-5.705 1.77.082.082 0 00-.038.032C6.092 13.984 5.1 18.822 5.588 23.607a.097.097 0 00.037.066 23.26 23.26 0 006.999 3.536.09.09 0 00.098-.032c.54-.737 1.02-1.514 1.432-2.332a.088.088 0 00-.048-.123 15.336 15.336 0 01-2.186-1.042.089.089 0 01-.009-.147c.147-.11.294-.224.434-.34a.086.086 0 01.09-.012c4.586 2.093 9.555 2.093 14.088 0a.086.086 0 01.091.011c.14.116.287.231.435.341a.089.089 0 01-.008.147c-.698.408-1.424.752-2.187 1.041a.088.088 0 00-.047.124c.42.817.9 1.594 1.431 2.331a.09.09 0 00.098.033 23.177 23.177 0 007.01-3.536.09.09 0 00.036-.064c.584-6.039-.978-11.289-4.14-15.942a.071.071 0 00-.036-.033zM13.07 20.604c-1.38 0-2.52-1.268-2.52-2.824 0-1.557 1.116-2.825 2.52-2.825 1.415 0 2.543 1.28 2.52 2.825 0 1.556-1.116 2.824-2.52 2.824zm9.315 0c-1.38 0-2.52-1.268-2.52-2.824 0-1.557 1.117-2.825 2.52-2.825 1.415 0 2.543 1.28 2.52 2.825 0 1.556-1.105 2.824-2.52 2.824z" fill="currentColor"/></svg>
+									<span class="d-lg-none">Discord</span>
+								</a>
+							</li>
+							<li class="social__item">
+								<a class="d-flex text-decoration-none" href="https://x.com/cryftlabs" target="_blank">
+									<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path d="M20.055 8.75h2.618l-5.717 6.535 6.727 8.89h-5.267l-4.124-5.395-4.72 5.395H6.953l6.115-6.99-6.453-8.435h5.4l3.729 4.93 4.311-4.93zm-.918 13.866h1.45L12.04 10.235h-1.558l8.655 12.38z" fill="currentColor"/></svg>
+									<span class="d-lg-none">X</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Javascript Files -->
+	<script src="js/vendor/jquery-3.6.0.min.js"></script>
+	<script src="js/vendor/bootstrap.bundle.min.js"></script>
+</body>
+</html>
