@@ -352,6 +352,9 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarContent">
 				<div class="navbar-nav-wrapper">
+					<button class="nav-scroll-btn nav-scroll-btn--left" aria-label="Scroll left">
+						<svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+					</button>
 					<div class="navbar-nav-scroll">
 						<ul class="navbar-nav list-unstyled">
 							<li class="nav-item">
@@ -374,7 +377,57 @@
 							</li>
 						</ul>
 					</div>
+					<button class="nav-scroll-btn nav-scroll-btn--right" aria-label="Scroll right">
+						<svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+					</button>
 				</div>
+
+				<div class="header__social"><ul class="social__list">
+	<li class="social__item">
+		<a class="d-flex text-decoration-none" href="https://youtube.com/@cryftlabs" target="_blank">
+			<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path d="M28.8 12.3c-.3-1.1-1.1-2-2.2-2.3C24.6 9.5 17.5 9.5 17.5 9.5s-7.1 0-9.1.5c-1.1.3-1.9 1.2-2.2 2.3-.5 2-.5 6.2-.5 6.2s0 4.2.5 6.2c.3 1.1 1.1 2 2.2 2.3 2 .5 9.1.5 9.1.5s7.1 0 9.1-.5c1.1-.3 1.9-1.2 2.2-2.3.5-2 .5-6.2.5-6.2s0-4.2-.5-6.2z" fill="currentColor"/><path d="M14.8 21.8l6.1-3.3-6.1-3.3v6.6z" fill="#222"/></svg>
+			<span class="d-lg-none">YouTube</span>
+		</a>
+	</li>
+	<li class="social__item">
+		<a class="d-flex text-decoration-none" href="https://discord.gg/cryft" target="_blank">
+			<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path d="M28.935 8.994a23.13 23.13 0 00-5.705-1.77.087.087 0 00-.092.043c-.246.438-.519.99-.71 1.432a21.345 21.345 0 00-6.41 0 14.555 14.555 0 00-.72-1.432.09.09 0 00-.092-.043 23.053 23.053 0 00-5.705 1.77.082.082 0 00-.038.032C6.092 13.984 5.1 18.822 5.588 23.607a.097.097 0 00.037.066 23.26 23.26 0 006.999 3.536.09.09 0 00.098-.032c.54-.737 1.02-1.514 1.432-2.332a.088.088 0 00-.048-.123 15.336 15.336 0 01-2.186-1.042.089.089 0 01-.009-.147c.147-.11.294-.224.434-.34a.086.086 0 01.09-.012c4.586 2.093 9.555 2.093 14.088 0a.086.086 0 01.091.011c.14.116.287.231.435.341a.089.089 0 01-.008.147c-.698.408-1.424.752-2.187 1.041a.088.088 0 00-.047.124c.42.817.9 1.594 1.431 2.331a.09.09 0 00.098.033 23.177 23.177 0 007.01-3.536.09.09 0 00.036-.064c.584-6.039-.978-11.289-4.14-15.942a.071.071 0 00-.036-.033zM13.07 20.604c-1.38 0-2.52-1.268-2.52-2.824 0-1.557 1.116-2.825 2.52-2.825 1.415 0 2.543 1.28 2.52 2.825 0 1.556-1.116 2.824-2.52 2.824zm9.315 0c-1.38 0-2.52-1.268-2.52-2.824 0-1.557 1.117-2.825 2.52-2.825 1.415 0 2.543 1.28 2.52 2.825 0 1.556-1.105 2.824-2.52 2.824z" fill="currentColor"/></svg>
+			<span class="d-lg-none">Discord</span>
+		</a>
+	</li>
+	<li class="social__item">
+		<a class="d-flex text-decoration-none" href="https://x.com/cryftlabs" target="_blank">
+			<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path d="M20.055 8.75h2.618l-5.717 6.535 6.727 8.89h-5.267l-4.124-5.395-4.72 5.395H6.953l6.115-6.99-6.453-8.435h5.4l3.729 4.93 4.311-4.93zm-.918 13.866h1.45L12.04 10.235h-1.558l8.655 12.38z" fill="currentColor"/></svg>
+			<span class="d-lg-none">X</span>
+		</a>
+	</li>
+	<li class="social__item">
+		<a class="d-flex text-decoration-none" href="https://github.com/cryft-labs" target="_blank">
+			<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 6C11.148 6 6 11.148 6 17.5c0 5.084 3.292 9.395 7.863 10.918.575.106.784-.25.784-.555 0-.273-.01-.997-.016-1.958-3.198.695-3.874-1.54-3.874-1.54-.523-1.328-1.277-1.682-1.277-1.682-1.044-.713.079-.699.079-.699 1.154.081 1.761 1.185 1.761 1.185 1.026 1.758 2.691 1.25 3.347.955.105-.743.401-1.25.73-1.538-2.552-.29-5.237-1.276-5.237-5.68 0-1.255.448-2.28 1.184-3.084-.119-.29-.513-1.46.112-3.043 0 0 .965-.309 3.162 1.178a11.02 11.02 0 012.88-.388c.977.005 1.961.132 2.88.388 2.195-1.487 3.158-1.178 3.158-1.178.627 1.583.233 2.753.114 3.043.737.804 1.182 1.829 1.182 3.084 0 4.415-2.688 5.387-5.248 5.67.413.355.78 1.056.78 2.129 0 1.537-.014 2.777-.014 3.154 0 .308.207.666.79.553C25.71 26.892 29 22.582 29 17.5 29 11.148 23.852 6 17.5 6z" fill="currentColor"/></svg>
+			<span class="d-lg-none">GitHub</span>
+		</a>
+	</li>
+	<li class="social__item">
+		<a class="d-flex text-decoration-none" href="https://twitch.tv/cryftlabs" target="_blank">
+			<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path d="M10.5 7L8 12.25v14h5.25V29h3.5l2.625-2.75h4.375L29 21V7H10.5zm15.75 12.25l-3.5 3.5h-5.25l-2.625 2.625v-2.625H10.5v-14h15.75v10.5z" fill="currentColor"/><path d="M21 11.375h2.625v7H21v-7zM15.75 11.375h2.625v7H15.75v-7z" fill="currentColor"/></svg>
+			<span class="d-lg-none">Twitch</span>
+		</a>
+	</li>
+	<li class="social__item">
+		<a class="d-flex text-decoration-none" href="https://whitepaper.cryft.net" target="_blank">
+			<svg width="35" height="35" viewBox="0 0 35 35" fill="none">
+				<path d="M8 6C8 4.89543 8.89543 4 10 4H18L27 13V29C27 30.1046 26.1046 31 25 31H10C8.89543 31 8 30.1046 8 29V6Z" fill="currentColor"/>
+				<path d="M18 4V13H27" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+				<rect x="12" y="17" width="11" height="2" rx="1" fill="#222"/>
+				<rect x="12" y="21" width="11" height="2" rx="1" fill="#222"/>
+				<rect x="12" y="25" width="7" height="2" rx="1" fill="#222"/>
+			</svg>
+			<span class="d-lg-none">Whitepaper</span>
+		</a>
+	</li>
+</ul>
+</div>
+
 			</div>
 		</nav>
 	</div>
@@ -729,21 +782,39 @@
 					<div class="footer__social">
 						<ul class="social__list">
 							<li class="social__item">
-								<a class="d-flex text-decoration-none" href="https://github.com/cryft-labs" target="_blank">
-									<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 6C11.148 6 6 11.148 6 17.5c0 5.084 3.292 9.395 7.863 10.918.575.106.784-.25.784-.555 0-.273-.01-.997-.016-1.958-3.198.695-3.874-1.54-3.874-1.54-.523-1.328-1.277-1.682-1.277-1.682-1.044-.713.079-.699.079-.699 1.154.081 1.761 1.185 1.761 1.185 1.026 1.758 2.691 1.25 3.347.955.105-.743.401-1.25.73-1.538-2.552-.29-5.237-1.276-5.237-5.68 0-1.255.448-2.28 1.184-3.084-.119-.29-.513-1.46.112-3.043 0 0 .965-.309 3.162 1.178a11.02 11.02 0 012.88-.388c.977.005 1.961.132 2.88.388 2.195-1.487 3.158-1.178 3.158-1.178.627 1.583.233 2.753.114 3.043.737.804 1.182 1.829 1.182 3.084 0 4.415-2.688 5.387-5.248 5.67.413.355.78 1.056.78 2.129 0 1.537-.014 2.777-.014 3.154 0 .308.207.666.79.553C25.71 26.892 29 22.582 29 17.5 29 11.148 23.852 6 17.5 6z" fill="currentColor"/></svg>
-									<span class="d-lg-none">GitHub</span>
+								<a class="d-flex text-decoration-none" href="https://youtube.com/@cryftlabs" target="_blank">
+									<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path d="M28.8 12.3c-.3-1.1-1.1-2-2.2-2.3C24.6 9.5 17.5 9.5 17.5 9.5s-7.1 0-9.1.5c-1.1.3-1.9 1.2-2.2 2.3-.5 2-.5 6.2-.5 6.2s0 4.2.5 6.2c.3 1.1 1.1 2 2.2 2.3 2 .5 9.1.5 9.1.5s7.1 0 9.1-.5c1.1-.3 1.9-1.2 2.2-2.3.5-2 .5-6.2.5-6.2s0-4.2-.5-6.2z" fill="currentColor"/><path d="M14.8 21.8l6.1-3.3-6.1-3.3v6.6z" fill="#222"/></svg>
 								</a>
 							</li>
 							<li class="social__item">
 								<a class="d-flex text-decoration-none" href="https://discord.gg/cryft" target="_blank">
 									<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path d="M28.935 8.994a23.13 23.13 0 00-5.705-1.77.087.087 0 00-.092.043c-.246.438-.519.99-.71 1.432a21.345 21.345 0 00-6.41 0 14.555 14.555 0 00-.72-1.432.09.09 0 00-.092-.043 23.053 23.053 0 00-5.705 1.77.082.082 0 00-.038.032C6.092 13.984 5.1 18.822 5.588 23.607a.097.097 0 00.037.066 23.26 23.26 0 006.999 3.536.09.09 0 00.098-.032c.54-.737 1.02-1.514 1.432-2.332a.088.088 0 00-.048-.123 15.336 15.336 0 01-2.186-1.042.089.089 0 01-.009-.147c.147-.11.294-.224.434-.34a.086.086 0 01.09-.012c4.586 2.093 9.555 2.093 14.088 0a.086.086 0 01.091.011c.14.116.287.231.435.341a.089.089 0 01-.008.147c-.698.408-1.424.752-2.187 1.041a.088.088 0 00-.047.124c.42.817.9 1.594 1.431 2.331a.09.09 0 00.098.033 23.177 23.177 0 007.01-3.536.09.09 0 00.036-.064c.584-6.039-.978-11.289-4.14-15.942a.071.071 0 00-.036-.033zM13.07 20.604c-1.38 0-2.52-1.268-2.52-2.824 0-1.557 1.116-2.825 2.52-2.825 1.415 0 2.543 1.28 2.52 2.825 0 1.556-1.116 2.824-2.52 2.824zm9.315 0c-1.38 0-2.52-1.268-2.52-2.824 0-1.557 1.117-2.825 2.52-2.825 1.415 0 2.543 1.28 2.52 2.825 0 1.556-1.105 2.824-2.52 2.824z" fill="currentColor"/></svg>
-									<span class="d-lg-none">Discord</span>
 								</a>
 							</li>
 							<li class="social__item">
 								<a class="d-flex text-decoration-none" href="https://x.com/cryftlabs" target="_blank">
 									<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path d="M20.055 8.75h2.618l-5.717 6.535 6.727 8.89h-5.267l-4.124-5.395-4.72 5.395H6.953l6.115-6.99-6.453-8.435h5.4l3.729 4.93 4.311-4.93zm-.918 13.866h1.45L12.04 10.235h-1.558l8.655 12.38z" fill="currentColor"/></svg>
-									<span class="d-lg-none">X</span>
+								</a>
+							</li>
+							<li class="social__item">
+								<a class="d-flex text-decoration-none" href="https://github.com/cryft-labs" target="_blank">
+									<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 6C11.148 6 6 11.148 6 17.5c0 5.084 3.292 9.395 7.863 10.918.575.106.784-.25.784-.555 0-.273-.01-.997-.016-1.958-3.198.695-3.874-1.54-3.874-1.54-.523-1.328-1.277-1.682-1.277-1.682-1.044-.713.079-.699.079-.699 1.154.081 1.761 1.185 1.761 1.185 1.026 1.758 2.691 1.25 3.347.955.105-.743.401-1.25.73-1.538-2.552-.29-5.237-1.276-5.237-5.68 0-1.255.448-2.28 1.184-3.084-.119-.29-.513-1.46.112-3.043 0 0 .965-.309 3.162 1.178a11.02 11.02 0 012.88-.388c.977.005 1.961.132 2.88.388 2.195-1.487 3.158-1.178 3.158-1.178.627 1.583.233 2.753.114 3.043.737.804 1.182 1.829 1.182 3.084 0 4.415-2.688 5.387-5.248 5.67.413.355.78 1.056.78 2.129 0 1.537-.014 2.777-.014 3.154 0 .308.207.666.79.553C25.71 26.892 29 22.582 29 17.5 29 11.148 23.852 6 17.5 6z" fill="currentColor"/></svg>
+								</a>
+							</li>
+							<li class="social__item">
+								<a class="d-flex text-decoration-none" href="https://twitch.tv/cryftlabs" target="_blank">
+									<svg width="35" height="35" viewBox="0 0 35 35" fill="none"><path d="M10.5 7L8 12.25v14h5.25V29h3.5l2.625-2.75h4.375L29 21V7H10.5zm15.75 12.25l-3.5 3.5h-5.25l-2.625 2.625v-2.625H10.5v-14h15.75v10.5z" fill="currentColor"/><path d="M21 11.375h2.625v7H21v-7zM15.75 11.375h2.625v7H15.75v-7z" fill="currentColor"/></svg>
+								</a>
+							</li>
+							<li class="social__item">
+								<a class="d-flex text-decoration-none" href="https://whitepaper.cryft.net" target="_blank">
+									<svg width="35" height="35" viewBox="0 0 35 35" fill="none">
+										<path d="M8 6C8 4.89543 8.89543 4 10 4H18L27 13V29C27 30.1046 26.1046 31 25 31H10C8.89543 31 8 30.1046 8 29V6Z" fill="currentColor"/>
+										<path d="M18 4V13H27" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+										<rect x="12" y="17" width="11" height="2" rx="1" fill="#222"/>
+										<rect x="12" y="21" width="11" height="2" rx="1" fill="#222"/>
+										<rect x="12" y="25" width="7" height="2" rx="1" fill="#222"/>
+									</svg>
 								</a>
 							</li>
 						</ul>
@@ -753,8 +824,13 @@
 		</div>
 	</footer>
 
+	<div class="scroll-to-top"></div>
+
 	<!-- Javascript Files -->
 	<script src="js/vendor/jquery-3.6.0.min.js"></script>
 	<script src="js/vendor/bootstrap.bundle.min.js"></script>
+	<script src="js/vendor/wow.min.js"></script>
+	<script src="js/vendor/owl.carousel.min.js"></script>
+	<script src="js/script.js"></script>
 </body>
 </html>
