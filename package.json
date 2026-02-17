@@ -1,0 +1,17 @@
+{
+  "name": "cryftlabs-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cryft Labs static website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "pm2:start": "pm2 start ecosystem.config.js",
+    "pm2:stop": "pm2 stop cryftlabs",
+    "pm2:restart": "pm2 restart cryftlabs",
+    "pm2:logs": "pm2 logs cryftlabs"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
