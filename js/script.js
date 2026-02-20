@@ -589,6 +589,19 @@
 			} else {
 				button.slideDown("slow");
 			}
+
+			// Keep arrow above footer when near bottom
+			var footer = $(".footer");
+			if (footer.length) {
+				var footerTop = footer.offset().top;
+				var scrollBottom = view.scrollTop() + view.height();
+				var overlap = scrollBottom - footerTop;
+				if (overlap > 0) {
+					button.css("bottom", (15 + overlap) + "px");
+				} else {
+					button.css("bottom", "15px");
+				}
+			}
 		});
 	}
 })(jQuery);

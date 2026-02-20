@@ -203,7 +203,7 @@ body.theme-dark {
 .scroll-to-top {
   display: none;
   position: fixed;
-  bottom: 90px;
+  bottom: 15px;
   right: 15px;
   width: 60px;
   height: 60px;
@@ -213,7 +213,7 @@ body.theme-dark {
   background-size: 100%;
   background-position: center;
   cursor: pointer;
-  transition: all 800ms ease-in-out;
+  transition: opacity 300ms ease, transform 300ms ease, bottom 200ms ease;
   z-index: 999;
 }
 .scroll-to-top:hover {
