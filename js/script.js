@@ -585,9 +585,9 @@
 
 		$(document).on("scroll", function () {
 			if (view.scrollTop() < 400) {
-				button.slideUp("slow");
+				button.stop(true).fadeOut(400);
 			} else {
-				button.slideDown("slow");
+				button.stop(true).fadeIn(400);
 			}
 
 			// Keep arrow above footer when near bottom
